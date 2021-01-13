@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="43" height="43" viewBox="0 0 43 43">
+  <defs>
+    <filter id="Ellipse_1" x="0" y="0" width="43" height="43" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#6e564d" flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Slider" transform="translate(6 4)">
+    <g transform="matrix(1, 0, 0, 1, -6, -4)" filter="url(#Ellipse_1)">
+      <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="15.5" cy="15.5" r="15.5" transform="translate(6 4)" fill="#fff"/>
+    </g>
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="6.5" cy="6.5" r="6.5" transform="translate(9 9)" fill="#cc9d76"/>
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="1.5" cy="1.5" r="1.5" transform="translate(14 14)" fill="#fff"/>
+  </g>
+</svg>
