@@ -4,12 +4,17 @@ import 'package:flutter_ecommerce/intro_screen/page1.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_screen/login_page.dart';
 import 'package:flutter_ecommerce/main_screen/main_page.dart';
+import 'package:flutter_ecommerce/main_screen/setting/latest_articles.dart';
 import 'package:flutter_ecommerce/main_screen/setting/my_address.dart';
+import 'package:flutter_ecommerce/main_screen/setting/my_card.dart';
+import 'package:flutter_ecommerce/main_screen/setting/my_vouches.dart';
 import 'package:flutter_ecommerce/main_screen/setting/new_address.dart';
 import 'package:flutter_ecommerce/main_screen/setting/order_history.dart';
+import 'package:flutter_ecommerce/main_screen/setting/setting.dart';
 import 'package:flutter_ecommerce/main_screen/setting/setting_main.dart';
 
 import 'package:flutter_ecommerce/more_detail.dart';
+import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/reset_password_screen/reset_password_page.dart';
 import 'package:flutter_ecommerce/search_screen/search_page.dart';
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
@@ -62,7 +67,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           initialRoute: //'/'
-          //'/newaddress'
+             // '/orderstatus'
           '/detail'
           //'/setting'
           //'/test'
@@ -81,10 +86,15 @@ class MyApp extends StatelessWidget {
             '/login': (context) => LoginPage(),
             '/sendemail': (context) => SendEmail(),
             '/test': (context) => Test14(),
-            '/setting': (context) => SettingMain(),
+            '/settingmain': (context) => SettingMain(),
             '/orderhistory': (context) => OrderHistory(),
             '/myaddress': (context) => MyAddress(),
-            '/newaddress': (context) => NewAddress()
+            '/newaddress': (context) => NewAddress(),
+            '/mycard': (context) => MyCard(),
+            '/myvouches': (context) => MyVouches(),
+            '/latest': (context) => LatestArticles(),
+            '/setting': (context) => Setting(),
+            '/orderstatus': (context) => OrderStatus()
             //Test13()
             ,
             //'/loading': (context) => LoadingPage(),

@@ -44,84 +44,87 @@ class _MoreDetailsState extends State<MoreDetails>
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            DefaultTabController(
-                length: 3, // length of tabs
-                initialIndex: 0,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Color(0xffE4E4E7),
-                                      width: 2.0,
-                                    ),
-                                  ),
-                                ),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          DefaultTabController(
+            length: 3, // length of tabs
+            initialIndex: 0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Color(0xffE4E4E7),
+                                width: 2.0,
                               ),
                             ),
-                            TabBar(
-                                controller: tabController,
-                                onTap: (int index) {
-                                  i = index;
-                                },
-                                isScrollable: true,
-                                indicatorColor: brownGoldColor,
-                                indicatorSize: TabBarIndicatorSize.label,
-                                tabs: [
-                                  Tab(
-                                    child: Text(
-                                      "Description",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          fontFamily: 'avenirH'),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Text(
-                                      'Specifications',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          fontFamily: 'avenirH'),
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Text(
-                                      'Reviews',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          fontFamily: 'avenirH'),
-                                    ),
-                                  ),
-                                ]),
-                          ],
+                          ),
                         ),
                       ),
-                      Container(
-                        color: Colors.white,
-                        height: y[i],
-                        child: TabBarView(
+                      TabBar(
                           controller: tabController,
-                          children: [
-                            DescriptionPage(),
-                            SpecificationsPage(),
-                            Reviews(),
-                          ],
-                        ),
-                      )
-                    ])),
-          ]),
+                          onTap: (int index) {
+                            i = index;
+                          },
+                          isScrollable: true,
+                          indicatorColor: brownGoldColor,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          tabs: [
+                            Tab(
+                              child: Text(
+                                "Description",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24,
+                                    fontFamily: 'avenirH'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                'Specifications',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24,
+                                    fontFamily: 'avenirH'),
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                'Reviews',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24,
+                                    fontFamily: 'avenirH'),
+                              ),
+                            ),
+                          ]),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  height: y[i],
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      DescriptionPage(),
+                      SpecificationsPage(),
+                      Reviews(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

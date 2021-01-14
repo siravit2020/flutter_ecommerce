@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -75,7 +77,6 @@ class NewAddress extends ConsumerWidget {
                             contentPadding: EdgeInsets.only(left: 10),
                             labelText: 'Address Line1',
                             labelStyle: TextStyle(
-                             
                               fontSize: 16,
                               fontFamily: 'avenirB',
                             ),
@@ -97,15 +98,147 @@ class NewAddress extends ConsumerWidget {
                             contentPadding: EdgeInsets.only(left: 10),
                             labelText: 'Address Line2',
                             labelStyle: TextStyle(
-                              color: Colors.black,
                               fontSize: 16,
                               fontFamily: 'avenirB',
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 60,
-                        )
+                          height: 30,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print("click${Random().nextInt(10)}");
+                          },
+                          child: Stack(
+                            children: [
+                              TextField(
+                                enabled: false,
+                                onChanged: (String msg) {},
+                                cursorColor: Color(0xffAA7E6F),
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffE5E5E5)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFFCC9D76)),
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10),
+                                  labelText: 'Country',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'avenirB',
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 17,
+                                right: 10,
+                                child: SvgPicture.asset(
+                                  'assets/icons/arrow_right.svg',
+                                  width: 12,
+                                  height: 12,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print("click${Random().nextInt(10)}");
+                          },
+                          child: Stack(
+                            children: [
+                              TextField(
+                                enabled: false,
+                                onChanged: (String msg) {},
+                                cursorColor: Color(0xffAA7E6F),
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffE5E5E5)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xFFCC9D76)),
+                                  ),
+                                  contentPadding: EdgeInsets.only(left: 10),
+                                  labelText: 'City',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'avenirB',
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 17,
+                                right: 10,
+                                child: SvgPicture.asset(
+                                  'assets/icons/arrow_right.svg',
+                                  width: 12,
+                                  height: 12,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        TextField(
+                          onChanged: (String msg) {},
+                          cursorColor: Color(0xffAA7E6F),
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffE5E5E5)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFFCC9D76)),
+                            ),
+                            contentPadding: EdgeInsets.only(left: 10),
+                            labelText: 'Zip Code',
+                            labelStyle: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'avenirB',
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Set Default Address",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'avenirB',
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                                child: Transform.scale(
+                                  scale: 0.6,
+                                  child: CupertinoSwitch(
+                                    activeColor: brownGoldColor,
+                                    value: true,
+                                    onChanged: (bool value) {},
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -125,7 +258,7 @@ class NewAddress extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(22.0),
                       ),
                       child: Text(
-                        "ADD ANOTHER ADDRESS",
+                        "SAVE ADDRESS",
                         style: TextStyle(
                           letterSpacing: 1.5,
                           fontSize: 13,
