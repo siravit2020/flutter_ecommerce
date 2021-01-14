@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../color_plate.dart';
-import '../constants.dart';
+import '../../color_plate.dart';
+import '../../constants.dart';
 
 class StorePage extends StatelessWidget {
   @override

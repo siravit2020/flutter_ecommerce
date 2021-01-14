@@ -1,6 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/main_screen/widgets/star.dart';
+import 'package:flutter_ecommerce/more_detail.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -43,7 +47,6 @@ class ProductDetail extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,8 +59,8 @@ class ProductDetail extends ConsumerWidget {
               Container(
                 width: double.infinity,
                 constraints: new BoxConstraints(
-            minHeight: height/2,
-          ),
+                  minHeight: height / 2,
+                ),
                 decoration: new BoxDecoration(
                   color: Colors.white,
                   borderRadius: new BorderRadius.only(
@@ -86,38 +89,7 @@ class ProductDetail extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/icons/star.svg',
-                          color: brownGoldColor,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/star.svg',
-                          color: brownGoldColor,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/star.svg',
-                          color: brownGoldColor,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/star.svg',
-                          color: brownGoldColor,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/star.svg',
-                          color: brownGoldColor.withOpacity(0.3),
-                        ),
+                        StarRow(),
                         SizedBox(
                           width: 8,
                         ),
@@ -127,7 +99,7 @@ class ProductDetail extends ConsumerWidget {
                               color: Colors.black,
                               fontFamily: 'avenirB',
                               fontSize: 12),
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -137,11 +109,31 @@ class ProductDetail extends ConsumerWidget {
                       "The Virgin Mary in the “Deesis” scene in the south\ngallery of Hagia Sophia is depicted on the Hagia\nSophia Mosaic Vase.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-
-                          color: Colors.black,
-                          fontFamily: 'avenirB',
-                          fontSize: 12),
-                    )
+                          color: textGrey, fontFamily: 'avenirB', fontSize: 12),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "€3450",
+                      style: TextStyle(
+                          color: brownGoldColor,
+                          fontFamily: 'avenirH',
+                          fontSize: 30),
+                    ),
+                    SizedBox(
+                      height: 26,
+                    ),
+                    MoreDetails(),
+                    // Text(
+                    //   "Similar products",
+                    //   style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontFamily: 'avenirH',
+                    //       fontSize: 24),
+                    // ),
+                    // SizedBox(height: 27,),
+                    // rowItem(featuredName2,featuredPrice2,featuredImage2),
                   ],
                 ),
               ),
@@ -152,3 +144,71 @@ class ProductDetail extends ConsumerWidget {
     );
   }
 }
+SizedBox rowItem(
+      List<String> listName, List<String> listPrice, List<String> listIamge) {
+    return SizedBox(
+      height: 230,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: listName.length,
+        itemBuilder: (context, index) {
+          var ran = Random().nextInt(2);
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Stack(
+                  children: [
+                    Image(
+                      image: AssetImage('assets/image/${listIamge[index]}'),
+                      width: 150,
+                    ),
+                    if (ran == 0)
+                      Positioned(
+                        right: 0,
+                        top: 10,
+                        child: Container(
+                          decoration: new BoxDecoration(
+                              color: brownGoldColor,
+                              borderRadius: new BorderRadius.only(
+                                bottomLeft: const Radius.circular(4),
+                                topRight: const Radius.circular(4),
+                              )),
+                          padding: EdgeInsets.all(4),
+                          child: Text(
+                            "-${Random().nextInt(50) + 20}%",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontFamily: 'avenirB'),
+                          ),
+                        ),
+                      ),
+          
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10.5,
+              ),
+              Text(
+                listName[index],
+                style: TextStyle(
+                    color: Colors.black, fontSize: 14, fontFamily: 'avenirB'),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                listPrice[index],
+                style: TextStyle(
+                    color: Colors.black, fontSize: 24, fontFamily: 'avenirM'),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }

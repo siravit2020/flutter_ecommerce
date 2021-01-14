@@ -2,13 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
-import 'package:flutter_ecommerce/main_screen/categories_page.dart';
+import 'package:flutter_ecommerce/main_screen/categories/categories_page.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../color_plate.dart';
-import '../constants.dart';
-import 'riverpod_main.dart';
+import '../../constants.dart';
+import '../riverpod_main.dart';
+
 
 final selectedTrashState = StateProvider<bool>((ref) {
   return false;

@@ -64,7 +64,7 @@ class ButtonFill2 extends StatelessWidget {
         message,
         style: TextStyle(
           letterSpacing: 1.5,
-          fontSize: 15,
+          fontSize: 13,
           fontFamily: 'avenirM',
         ),
       ),

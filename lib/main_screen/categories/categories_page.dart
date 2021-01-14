@@ -3,9 +3,11 @@ import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
-import '../color_plate.dart';
-import '../constants.dart';
-import 'riverpod_main.dart';
+
+import '../../color_plate.dart';
+import '../../constants.dart';
+import '../riverpod_main.dart';
+
 
 final changePageState = StateProvider<int>((ref) {
   return 0;

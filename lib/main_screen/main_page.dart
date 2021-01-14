@@ -6,16 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_screen/login_page.dart';
-import 'package:flutter_ecommerce/main_screen/categories_page.dart';
-import 'package:flutter_ecommerce/main_screen/favorites_page.dart';
+
 import 'package:flutter_ecommerce/seach_and_hastag/hastag.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants.dart';
+import 'categories/categories_page.dart';
+import 'favorites/favorites_page.dart';
 import 'riverpod_main.dart';
-import 'store_page.dart';
+import 'setting/setting_main.dart';
+import 'store/store_page.dart';
 
 List<String> title = ['STORE', 'CATEGORIES', 'EMPTY', 'FAVORITES', ''];
 
@@ -27,19 +29,20 @@ class MainPageState extends ConsumerWidget {
   static List<Widget> _widgetOptions = <Widget>[
     StorePage(),
     CategoriesPage(),
-    Container(color: Colors.white,height: 800,),
-    FavoritesPage(),
-    Text(
-      '5',
+    Container(
+      color: Colors.white,
+      height: 800,
     ),
+    FavoritesPage(),
+    SettingMain()
   ];
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final selectedIndex = watch(selectedIndexState);
     final titleAppbar = watch(titleAppbarState);
-
-    final t = MediaQuery.of(context).padding.top + kToolbarHeight;
+    pTop = MediaQuery.of(context).padding.top + kToolbarHeight;
+    pBottom = kBottomNavigationBarHeight;
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.black,
@@ -81,40 +84,40 @@ class MainPageState extends ConsumerWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 4),
-                child: (selectedIndex.state != 3) ? Row(
-                  children: [
-                    IconButton(
-                      splashRadius: 20,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/hastag');
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/filter.svg',
+                child: (selectedIndex.state != 3)
+                    ? Row(
+                        children: [
+                          IconButton(
+                            splashRadius: 20,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/hastag');
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/filter.svg',
+                              color: Colors.white,
+                            ),
+                          ),
+                          IconButton(
+                            splashRadius: 20,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/search');
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/search.svg',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )
+                    : IconButton(
+                        splashRadius: 20,
                         color: Colors.white,
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'assets/icons/trashOut.svg',
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      splashRadius: 20,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/search.svg',
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ) :  IconButton(
-                      splashRadius: 20,
-                      color: Colors.white,
-                      onPressed: () {
-                        
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/trashOut.svg',
-                        color: Colors.white,
-                      ),
-                    ),
               ),
             ],
             backgroundColor: Colors.black,

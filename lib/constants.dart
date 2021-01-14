@@ -119,6 +119,8 @@ List<Collections> collection = [
     '€2950',
   ),
 ];
+double pTop;
+double pBottom;
 
 class Collections {
   String image;

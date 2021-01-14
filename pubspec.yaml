@@ -78,6 +78,9 @@ flutter:
     - family: avenirM
       fonts:
         - asset: assets/fonts/Avenir-Medium.otf
+    - family: avenirBl
+      fonts:
+        - asset: assets/fonts/Avenir-Black.ttf
         
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
