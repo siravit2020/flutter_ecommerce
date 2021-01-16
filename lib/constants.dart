@@ -86,7 +86,23 @@ const List<String> sortWatches = [
   'Raiting',
   'Archeological',
 ];
-
+List<Collections> collection2 = [
+  Collections(
+    'Gulcehre_ibrik.png',
+    'Gulcehre Ibrik',
+    '€5650',
+  ),
+  Collections(
+    'MedicinalVase.png',
+    'Kavuk Vase',
+    '€4850',
+  ),
+  Collections(
+    'MysticalVase.png',
+    'Mystical Vase',
+    '€3150',
+  ),
+];
 List<Collections> collection = [
   Collections(
     'ThankGodBowl.png',
@@ -119,6 +135,13 @@ List<Collections> collection = [
     '€2950',
   ),
 ];
+
+List<Method> method = [
+  Method("Standard Shipping (16 days)", "FREE"),
+  Method("Express (8 days)", "€40"),
+  Method("Premium (1 day)", "€80"),
+];
+
 double pTop;
 double pBottom;
 
@@ -127,4 +150,10 @@ class Collections {
   String name;
   String price;
   Collections(this.image, this.name, this.price);
+}
+
+class Method {
+  String method;
+  String price;
+  Method(this.method, this.price);
 }

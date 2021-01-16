@@ -34,6 +34,9 @@ dependencies:
   autocomplete_textfield: ^1.7.3
   carousel_slider: ^2.3.1
   flutter_custom_switch: ^0.0.2
+  google_maps_flutter: ^1.1.1
+  geolocator: ^6.1.13
+  geocoder: ^0.2.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
