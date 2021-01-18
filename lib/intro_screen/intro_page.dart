@@ -32,9 +32,9 @@ class _IntroPageState extends State<IntroPage> {
                   controller: controller,
                   count: 3,
                   effect: ScaleEffect(
-                    dotHeight: 4.h,
-                    dotWidth: 4.w,
-                    spacing: 10.w,
+                    dotHeight: 4,
+                    dotWidth: 4,
+                    spacing: 10,
                     dotColor: Color(0xff707070),
                     activeDotColor: brownGoldColor,
                     activePaintStyle: PaintingStyle.fill,

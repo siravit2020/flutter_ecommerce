@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
-
+import 'package:flutter_ecommerce/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Page3 extends StatelessWidget {
   const Page3({Key key}) : super(key: key);
 
@@ -20,28 +21,25 @@ class Page3 extends StatelessWidget {
                 //SvgPicture.asset("assets/image/Gulcehre_ibrik.svg",width: 100,height: 100,),
                 Image(
                   image: AssetImage('assets/image/MysticalVase.png'),
-                  width: w * 4.8,
+                  height: 1.sh / 2,
                 ),
                 Text(
                   "€3150",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 20, fontFamily: 'avenirH'),
+                  style: h20.copyWith(color: Colors.white),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 5.h,
                 ),
                 Text(
                   "HISTORY CULTRUE GLASS",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 13, fontFamily: 'avenirB'),
+                  style: b13.copyWith(color: Colors.white),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 10.h,
                 ),
                 Text(
                   "Mystical Vase \n Limited Edition",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 40, fontFamily: 'avenirH'),
+                  style: h40.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -49,7 +47,7 @@ class Page3 extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 24,
+          height: 24.h,
         ),
         FlatButton(
           minWidth: w * 3,
@@ -63,11 +61,11 @@ class Page3 extends StatelessWidget {
               side: BorderSide(color: Colors.white)),
           child: Text(
             "SIGN IN",
-            style: TextStyle(fontSize: 15, fontFamily: 'avenirM'),
+            style: m15,
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 10.h,
         ),
         ButtonFill(
           width: w * 3,
@@ -78,7 +76,7 @@ class Page3 extends StatelessWidget {
           },
         ),
         SizedBox(
-          height: 16.5,
+          height: 16.5.h,
         ),
       ],
     );

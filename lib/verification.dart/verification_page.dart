@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../color_plate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final smsColorState = StateProvider<bool>((ref) {
   return false;
@@ -20,6 +22,7 @@ final smsRiverpod = ChangeNotifierProvider<SmsRiverpod>((ref) {
 class SmsRiverpod extends ChangeNotifier {
   Timer timer;
   int start = 10;
+
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     timer = new Timer.periodic(
@@ -55,9 +58,9 @@ class VerificationPage extends ConsumerWidget {
           children: [
             Positioned(
               top: kToolbarHeight,
-              right: 18,
+              right: 18.w,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: EdgeInsets.only(top: 8.h),
                 child: SvgPicture.asset('assets/icons/close.svg'),
               ),
             ),
@@ -71,61 +74,50 @@ class VerificationPage extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //1 222 555 6677
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //1 222 555 6677
 
-                        Text(
-                          "Enter the 4 digit code sent to:",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontFamily: 'avenirB'),
-                          textAlign: TextAlign.center,
-                        ),
+                          Text(
+                            "Enter the 4 digit code sent to:",
+                            style: h24,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Text(
+                            "1 222 555 6677",
+                            style: h30.copyWith(color: brownGoldColor),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 10.5.h,
+                          ),
 
-                        Text(
-                          "1 222 555 6677",
-                          style: TextStyle(
-                              color: brownGoldColor,
-                              fontSize: 30,
-                              fontFamily: 'avenirB'),
-                          textAlign: TextAlign.center,
-                        ),
+                          Text(
+                              "We've sent a 4 digit code to your phone number. Please enter the verification code.",
+                              style: b14,
+                              textAlign: TextAlign.center),
 
-                        SizedBox(height: 9.5),
+                          SizedBox(
+                            height: 84.5.h,
+                          ),
 
-                        Text(
-                            "We've sent a 4 digit code to your phone number. \n Please enter the verification code.",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'avenirB',
-                            ),
-                            textAlign: TextAlign.center),
-
-                        SizedBox(
-                          height: 49.5,
-                        ),
-
-                        Container(
-                          width: w * 0.8,
-                          height: 100,
-                          child: PinCodeTextField(
+                          PinCodeTextField(
                             appContext: context,
                             length: 4,
                             obscureText: false,
                             animationType: AnimationType.fade,
-                            textStyle: TextStyle(
-                              fontFamily: 'avenirM',
-                              fontSize: 24,
-                            ),
+                            textStyle: h24,
                             pinTheme: PinTheme(
                               shape: PinCodeFieldShape.underline,
                               borderWidth: 1,
-                              fieldHeight: 42,
-                              fieldWidth: 54,
+                              fieldHeight: 42.h,
+                              fieldWidth: 54.w,
                               activeFillColor: Colors.transparent,
                               activeColor: Colors.black.withOpacity(0.1),
                               inactiveFillColor: Colors.transparent,
@@ -146,8 +138,8 @@ class VerificationPage extends ConsumerWidget {
                               print(value);
                             },
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   Text("Didn’t receive the SMS?",
@@ -155,23 +147,25 @@ class VerificationPage extends ConsumerWidget {
                         color: (river.start == 10)
                             ? Color(0xff676870)
                             : Colors.black,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'avenirB',
                       ),
                       textAlign: TextAlign.center),
                   Text(
                       (river.start == 10)
                           ? "Request new code in 00:00"
-                          : "Request new code in 00:${river.start}",
+                          : (river.start < 9)
+                              ? "Request new code in 00:0${river.start}"
+                              : "Request new code in 00:${river.start}",
                       style: TextStyle(
                         color:
                             (river.start == 10) ? Colors.black : brownGoldColor,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'avenirB',
                       ),
                       textAlign: TextAlign.center),
                   SizedBox(
-                    height: 30,
+                    height: 30.h,
                   ),
                   FlatButton(
                     minWidth: w5 * 3,
@@ -179,10 +173,14 @@ class VerificationPage extends ConsumerWidget {
                     onPressed: () {
                       if (buttonSms.state) river.startTimer();
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoadingPage(nextPage: '/verified',)),
-                        );
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoadingPage(
+                            nextPage: '/verified',
+                          ),
+                        ),
+                        
+                      );
                     },
                     color: (buttonSms.state)
                         ? brownGoldColor
@@ -192,16 +190,12 @@ class VerificationPage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(22.0),
                     ),
                     child: Text(
-                      "RECOVER EMAIL",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'avenirM',
-                        letterSpacing: 2,
-                      ),
+                      "REQUEST NEW CODE",
+                      style: m15.copyWith(letterSpacing: 2),
                     ),
                   ),
                   SizedBox(
-                    height: 16.5,
+                    height: 16.5.h,
                   ),
                 ],
               ),

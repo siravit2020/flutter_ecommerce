@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width / 5;
+    final w = 1.sw / 5;
     return Column(
       children: [
         Expanded(
@@ -17,44 +19,39 @@ class Page2 extends StatelessWidget {
               children: [
                 Text(
                   "HISTORY CULTRUE GLASS",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 13, fontFamily: 'avenirB'),
+                  style: b13.copyWith(color: Colors.white),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 Text(
                   "Hagia Sophia \n Deesis Mosaic Vase",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 40, fontFamily: 'avenirH'),
+                  style: h40.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 9.5,
+                  height: 9.5.h,
                 ),
                 Text(
                   "€3450",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 20, fontFamily: 'avenirH'),
+                  style: h20.copyWith(color: Colors.white),
                 ),
                 Image(
                   image: AssetImage('assets/image/SoteriaVazo.png'),
-                  width: w * 4.8,
+                  height: 1.sh / 2,
                 ),
               ],
             ),
           ),
         ),
-       ButtonFill(
+        ButtonFill(
           width: w * 3,
           color: goldColor,
-          message: "MASTER BUTTON",
-          fuction: () {
-            
-          },
+          message: "MAIN PAGE",
+          fuction: () {},
         ),
         SizedBox(
-          height: 16.5,
+          height: 16.5.h,
         ),
       ],
     );

@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../color_plate.dart';
 
 final visiblePassword = ChangeNotifierProvider<VisiblePassword>((ref) {
   return VisiblePassword();
+});
+
+final controllerChange = ChangeNotifierProvider<ControllerChange>((ref) {
+  return ControllerChange();
 });
 
 class VisiblePassword extends ChangeNotifier {
@@ -21,36 +26,29 @@ class VisiblePassword extends ChangeNotifier {
   }
 }
 
+class ControllerChange extends ChangeNotifier {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+}
+
 class RegisterPage extends ConsumerWidget {
   const RegisterPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final visible = watch(visiblePassword);
-    final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
-    final height = MediaQuery.of(context).size.height - kToolbarHeight;
+    final controller = watch(controllerChange);
+    final w = 1.sw;
+    final w5 = w / 5;
+    final height = 1.sh - kToolbarHeight;
+
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                 Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "REGISTER",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
+          appBar: StandardAppbar(
+            title: "REGISTER",
           ),
           body: Container(
             constraints: new BoxConstraints(
@@ -69,75 +67,42 @@ class RegisterPage extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
-                    height: 34.5,
+                    height: 38.5.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
                       "Create your account",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontFamily: 'avenirH'),
+                      style: h30,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
-                    height: 8,
+                    height: 8.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
                         "After your registration is complete \n you can see our opportunity products.",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'avenirB',
-                        ),
+                        style: b14,
                         textAlign: TextAlign.center),
                   ),
                   SizedBox(
-                    height: 29.5,
+                    height: 29.5.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                    child: TextField(
-                      style: TextStyle(fontFamily: 'avenirB', fontSize: 16),
-                      cursorColor: Color(0xffAA7E6F),
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                        ),
-                        contentPadding: EdgeInsets.only(left: 10),
-                        labelText: 'Username',
-                      ),
-                    ),
+                  TextFieldBrown(
+                    label: "Username",
+                    controller: controller.usernameController,
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 25.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                    child: TextField(
-                      style: TextStyle(fontFamily: 'avenirB', fontSize: 16),
-                      cursorColor: Color(0xffAA7E6F),
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                        ),
-                        contentPadding: EdgeInsets.only(left: 10),
-                        labelText: 'Email',
-                      ),
-                    ),
+                  TextFieldBrown(
+                    label: "Email",
+                    controller: controller.emailController,
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 25.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
@@ -145,10 +110,7 @@ class RegisterPage extends ConsumerWidget {
                       alignment: const Alignment(1.0, 1.0),
                       children: [
                         TextField(
-                          style: TextStyle(
-                            fontFamily: 'avenirB',
-                            fontSize: 16,
-                          ),
+                          style: b16,
                           cursorColor: Color(0xffAA7E6F),
                           obscureText: visible.password,
                           decoration: InputDecoration(
@@ -158,7 +120,8 @@ class RegisterPage extends ConsumerWidget {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Color(0xFFCC9D76)),
                             ),
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding:
+                                EdgeInsets.only(left: 10.w, right: 50.w),
                             labelText: 'Password',
                           ),
                         ),
@@ -181,12 +144,12 @@ class RegisterPage extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 25.h,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: TextField(
-                      style: TextStyle(fontFamily: 'avenirB', fontSize: 16),
+                    padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+                    child: TextFormField(
+                      style: b16,
                       keyboardType: TextInputType.number,
                       cursorColor: Color(0xffAA7E6F),
                       decoration: InputDecoration(
@@ -196,13 +159,13 @@ class RegisterPage extends ConsumerWidget {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFFCC9D76)),
                         ),
-                        contentPadding: EdgeInsets.only(left: 10),
+                        contentPadding: EdgeInsets.only(left: 10.w),
                         labelText: 'Phone',
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 40.h,
                   ),
                   ButtonFill(
                     message: "SIGN UP",
@@ -213,7 +176,7 @@ class RegisterPage extends ConsumerWidget {
                     width: w5 * 3,
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 36.h,
                   ),
                   FlatButton(
                     minWidth: w5 * 3,
@@ -233,12 +196,12 @@ class RegisterPage extends ConsumerWidget {
                           'assets/icons/google.svg',
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 20.w,
                         ),
                         Text(
                           "Continue with Google",
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontFamily: 'avenirB',
                           ),
                         ),
@@ -246,7 +209,7 @@ class RegisterPage extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 10.h,
                   ),
                   FlatButton(
                     minWidth: w5 * 3,
@@ -265,12 +228,12 @@ class RegisterPage extends ConsumerWidget {
                           'assets/icons/facebook.svg',
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 20.w,
                         ),
                         Text(
                           "Continue with Facebook",
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontFamily: 'avenirB',
                           ),
                         ),
@@ -278,14 +241,14 @@ class RegisterPage extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 28,
+                    height: 28.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Already have an account? ",
-                        style: TextStyle(color: Color(0xff676870)),
+                        style: b14,
                       ),
                       Material(
                         color: Colors.transparent,
@@ -297,13 +260,16 @@ class RegisterPage extends ConsumerWidget {
                           },
                           child: Text(
                             "Sign In",
+                            style: b14.copyWith(
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: 34.5,
+                    height: 16.5.h,
                   ),
                 ],
               ),

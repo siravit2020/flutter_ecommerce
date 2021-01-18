@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width / 5;
+    final w = 1.sw / 5;
+   
     return Column(
       children: [
         Expanded(
@@ -20,28 +22,25 @@ class Page1 extends StatelessWidget {
               children: [
                 Image(
                   image: AssetImage('assets/image/Gulcehre_ibrik.png'),
-                  width: w * 4.8,
+                  height: 1.sh / 2,
                 ),
                 Text(
                   "€5650",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 20, fontFamily: 'avenirH'),
+                  style: h20.copyWith(color: Colors.white),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 5.h,
                 ),
                 Text(
                   "HISTORY CULTRUE GLASS",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 13, fontFamily: 'avenirB'),
+                  style: b13.copyWith(color: Colors.white),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 10.h,
                 ),
                 Text(
                   "Gülçehre ibrik \n Limited Edition",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 40, fontFamily: 'avenirH'),
+                  style: h40.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -50,7 +49,7 @@ class Page1 extends StatelessWidget {
         ),
         ButtonFill(
           width: w * 3,
-          message: "MASTER BUTTON",
+          message: "MAIN PAGE",
           color: goldColor,
           fuction: () {
             Navigator.push(
@@ -63,7 +62,7 @@ class Page1 extends StatelessWidget {
           },
         ),
         SizedBox(
-          height: 16.5,
+          height: 16.5.h,
         ),
       ],
     );

@@ -35,7 +35,9 @@ class _LoadingPageState extends State<LoadingPage> {
     const oneSec = const Duration(milliseconds: 100);
     time = Timer.periodic(oneSec, (Timer t) {
       print(t.tick);
+      if(widget.nextPage != "null")
       if(t.tick == 20){
+        Navigator.pop(context);
         Navigator.pushNamed(context, widget.nextPage);
         time.cancel();
       }

@@ -1,38 +1,111 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:ui' as ui;
-import 'package:geocoder/geocoder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MapFull extends StatefulWidget {
   @override
-  State<MapFull> createState() => MapFullState();
+  _MapFullState createState() => _MapFullState();
 }
 
-class MapFullState extends State<MapFull> {
+class _MapFullState extends State<MapFull> {
   Set<Marker> _marker = {};
   Marker marker2;
   BitmapDescriptor mapMarker;
+  BitmapDescriptor mapMarker2;
   Completer<GoogleMapController> _controller = Completer();
-  LatLng l = LatLng(0.0, 0.0);
+  LatLng location = LatLng(0.0, 0.0);
   Set<Circle> circles;
+  String address;
+  bool status = false;
 
+  var textAddress = TextEditingController();
   void setCustomMarker() async {
     Uint8List markerIcon =
         await getBytesFromAsset('assets/image/Slider.png', 80);
+    Uint8List markerIcon2 =
+        await getBytesFromAsset('assets/image/Various-Store.png', 100);
     mapMarker = BitmapDescriptor.fromBytes(markerIcon);
+
+    mapMarker2 = BitmapDescriptor.fromBytes(markerIcon2);
+    final marker2 = Marker(
+      anchor: Offset(0.5, 0.5),
+      icon: mapMarker,
+      markerId: MarkerId('1'),
+      position: location,
+    );
+    _marker.add(marker2);
+    for (int i = 2; i < 7; i++) {
+      var m = Marker(
+        anchor: Offset(0.5, 0.5),
+        icon: mapMarker2,
+        markerId: MarkerId('$i'),
+        position: LatLng(
+            13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)),
+            100.6 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0))),
+      );
+      _marker.add(m);
+    }
+    circles = Set.from([
+      Circle(
+        circleId: CircleId("1"),
+        fillColor: brownGoldColor.withOpacity(0.1),
+        strokeColor: Colors.transparent,
+        center: location,
+        radius: 160,
+      )
+    ]);
+    gett(location.latitude, location.longitude);
+    //setState(() {});
   }
 
-  Future<String> _calculation = Future<String>.delayed(
-    Duration(seconds: 2),
-    () => 'Data Loaded',
-  );
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
+  }
+
+  void gett(double lan, double long) async {
+    final query = "74/253 รามอินทรา";
+    var addresses = Geocoder.local.findAddressesFromQuery(query);
+    var first;
+    addresses.then((d) {
+      print('${d.first.featureName} ${d.first.coordinates}');
+    });
+
+    final coordinates = new Coordinates(lan, long);
+    addresses = Geocoder.local.findAddressesFromCoordinates(coordinates);
+
+    addresses.then((d) {
+      print('${d.first.addressLine}');
+      print('${d.first.countryName}');
+      print('${d.first.adminArea}');
+      print('${d.first.postalCode}');
+      print('${d.first.featureName}');
+      print('${d.first.thoroughfare}');
+
+      address = d.first.addressLine;
+      textAddress.text = address;
+      setState(() {});
+    });
+  }
+
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -60,110 +133,65 @@ class MapFullState extends State<MapFull> {
     return await Geolocator.getCurrentPosition();
   }
 
-  Future<Uint8List> getBytesFromAsset(String path, int width) async {
-    ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
-        .buffer
-        .asUint8List();
-  }
-
   @override
   void initState() {
-    setCustomMarker();
+    _determinePosition().then((value) {
+      location = LatLng(value.latitude, value.longitude);
+      status = true;
+      setCustomMarker();
+    });
+    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
+    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
+    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
+    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
+    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
+    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
+    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
+    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
     super.initState();
   }
 
-  void gett(double lan, double long) async {
-    final query = "74/253 รามอินทรา";
-    var addresses = Geocoder.local.findAddressesFromQuery(query);
-    var first;
-    addresses.then((d) {
-   
-      print('${d.first.featureName} ${d.first.coordinates}');
-    });
-    
-
-    final coordinates = new Coordinates(lan, long);
-    addresses = Geocoder.local.findAddressesFromCoordinates(coordinates);
-
-    addresses.then((d) {
-
-      print('${d.first.addressLine}');
-    });
-    
+  double randomDoubleInRange({double min = 0.0, double max = 1.0}) {
+    return Random().nextDouble() * (max - min + 1) + min;
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: FutureBuilder<Position>(
-        future: _determinePosition(),
-        builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
-          if (snapshot.hasData) {
-            print(Random().nextInt(2));
-            gett(snapshot.data.latitude, snapshot.data.longitude);
-            marker2 = Marker(
-              anchor: Offset(0.5, 0.5),
-              icon: mapMarker,
-              markerId: MarkerId('1'),
-              position: LatLng(snapshot.data.latitude, snapshot.data.longitude),
-            );
-            final marker3 = Marker(
-              anchor: Offset(0.5, 0.5),
-              icon: mapMarker,
-              markerId: MarkerId('2'),
-              position: LatLng(snapshot.data.latitude + 0.001,
-                  snapshot.data.longitude + 0.002),
-            );
-            _marker.add(marker2);
-            _marker.add(marker3);
-            return GoogleMap(
-              circles: Set.from([
-                Circle(
-                  circleId: CircleId("1"),
-                  fillColor: brownGoldColor.withOpacity(0.1),
-                  strokeColor: Colors.transparent,
-                  center:
-                      LatLng(snapshot.data.latitude, snapshot.data.longitude),
-                  radius: 160,
-                )
-              ]),
-              markers: _marker,
-              onTap: (pos) {
-                Marker m = Marker(
-                  anchor: Offset(0.5, 0.5),
-                  icon: mapMarker,
-                  markerId: MarkerId('1'),
-                  position: pos,
-                );
-                circles = Set.from([
-                  Circle(
-                    circleId: CircleId("1"),
-                    fillColor: brownGoldColor.withOpacity(0.1),
-                    strokeColor: Colors.transparent,
-                    center: pos,
-                    radius: 160,
-                  )
-                ]);
-                setState(() {
-                  _marker.add(m);
-                });
-              },
-              initialCameraPosition: CameraPosition(
-                target: LatLng(snapshot.data.latitude, snapshot.data.longitude),
-                zoom: 14.4746,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            );
-          } else
-            return SizedBox();
-        },
+    final height = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+    final w5 = MediaQuery.of(context).size.width / 5;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
       ),
+      extendBodyBehindAppBar: true,
+      body: (status)
+          ? Center(
+              child: GoogleMap(
+                circles: circles,
+                markers: _marker,
+                onTap: (pos) {
+                  print(pos);
+                },
+                initialCameraPosition: CameraPosition(
+                  target: location,
+                  zoom: 14.4746,
+                ),
+                gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                  new Factory<OneSequenceGestureRecognizer>(
+                    () => new EagerGestureRecognizer(),
+                  ),
+                ].toSet(),
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              ),
+            )
+          : LoadingPage(
+              nextPage: "null",
+            ),
     );
   }
 }

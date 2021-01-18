@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../color_plate.dart';
 import '../../constants.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
+    final w = 1.sw;
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     return Container(
       width: double.infinity,
       constraints: new BoxConstraints(
         minHeight: height,
       ),
-      decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: new BorderRadius.only(
-          topLeft: const Radius.circular(20.0),
-          topRight: const Radius.circular(20.0),
-        ),
-      ),
+      decoration: whiteCorner,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,8 +29,7 @@ class StorePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: w * 0.08),
               child: Text(
                 "Ottoman Collection",
-                style: TextStyle(
-                    color: Colors.black, fontSize: 30, fontFamily: 'avenirH'),
+                style: h30,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -44,11 +39,7 @@ class StorePage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: w * 0.08),
               child: Text("Find the perfect watch for your wrist",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                  ),
+                  style: b14,
                   textAlign: TextAlign.center),
             ),
             SizedBox(

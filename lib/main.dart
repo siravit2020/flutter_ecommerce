@@ -29,6 +29,7 @@ import 'package:flutter_ecommerce/test4.dart';
 import 'package:flutter_ecommerce/test5.dart';
 import 'package:flutter_ecommerce/test7.dart';
 import 'package:flutter_ecommerce/test9.dart';
+import 'package:flutter_ecommerce/test_map/map_test.dart';
 import 'package:flutter_ecommerce/verification.dart/verification_page.dart';
 import 'package:flutter_ecommerce/verification.dart/verified.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -76,9 +77,9 @@ class MyApp extends StatelessWidget {
               //'/test'
               //'/intro'
               //'/map'
-              '/mylocation',
+              '/main',
           routes: {
-            '/': (context) => MainPageState(),
+            '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
             '/search': (context) => SearchPage(),
             '/intro': (context) => IntroPage(),
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
             '/orderdetail': (context) => OrderDetail(),
             '/map': (context) => MapFull(),
             '/mylocation': (context) => MyLocation()
+            
             //Test13()
             ,
             //'/loading': (context) => LoadingPage(),
