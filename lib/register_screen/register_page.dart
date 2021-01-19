@@ -31,6 +31,7 @@ class ControllerChange extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  
 }
 
 class RegisterPage extends ConsumerWidget {

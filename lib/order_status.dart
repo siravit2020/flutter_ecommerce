@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,8 +6,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderStatus extends ConsumerWidget {
   const OrderStatus({Key key}) : super(key: key);
@@ -16,40 +19,22 @@ class OrderStatus extends ConsumerWidget {
     final w = MediaQuery.of(context).size.width;
     final w5 = MediaQuery.of(context).size.width / 5;
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
+    List<bool> status = [true, false, false, false, false];
+    for (int i = 0; i < Random().nextInt(5); i++) {
+      status[i] = true;
+    }
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "ORDER STATUS",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
+          appBar: StandardAppbar(
+            title: "ORDER STATUS",
           ),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(20.0),
-                topRight: const Radius.circular(20.0),
-              ),
-            ),
+            decoration: whiteCorner,
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: w * 0.08),
@@ -60,66 +45,66 @@ class OrderStatus extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 41.h,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
                             children: [
-                              stick(true),
+                              stick(status[0]),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
                               Container(
-                                height: 64,
+                                height: 64.h,
                                 width: 1,
                                 color: Colors.black.withOpacity(0.3),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
-                              stick(false),
+                              stick(status[1]),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
                               Container(
-                                height: 64,
+                                height: 64.h,
                                 width: 1,
                                 color: Colors.black.withOpacity(0.3),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
-                              stick(false),
+                              stick(status[2]),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
                               Container(
-                                height: 64,
+                                height: 64.h,
                                 width: 1,
                                 color: Colors.black.withOpacity(0.3),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
-                              stick(false),
+                              stick(status[3]),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
                               Container(
-                                height: 64,
+                                height: 64.h,
                                 width: 1,
                                 color: Colors.black.withOpacity(0.3),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 10.h,
                               ),
-                              stick(false),
+                              stick(status[4]),
                             ],
                           ),
                           SizedBox(
-                            width: 20,
+                            width: 20.w,
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.max,
@@ -152,35 +137,27 @@ class OrderStatus extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 28,
+          height: 28.h,
           child: Center(
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'avenirH',
-                color: Colors.black,
-              ),
+              style: h20,
             ),
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 10.h,
         ),
         SizedBox(
-          width: 250,
-          height: 64,
+          width: 250.w,
+          height: 64.h,
           child: Text(
             subTitle,
-            style: TextStyle(
-              fontSize: 14,
-              fontFamily: 'avenirB',
-              color: Colors.black,
-            ),
+            style: b14.copyWith(color: Colors.black),
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 10.h,
         ),
       ],
     );
@@ -190,8 +167,8 @@ class OrderStatus extends ConsumerWidget {
     return Column(
       children: [
         Container(
-          width: 28,
-          height: 28,
+          width: 28.h,
+          height: 28.h,
           decoration: (status)
               ? BoxDecoration(
                   color: brownGoldColor,

@@ -18,6 +18,7 @@ import 'package:flutter_ecommerce/main_screen/setting/setting_main.dart';
 import 'package:flutter_ecommerce/more_detail.dart';
 import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
+import 'package:flutter_ecommerce/order_success.dart';
 import 'package:flutter_ecommerce/reset_password_screen/reset_password_page.dart';
 import 'package:flutter_ecommerce/select_country.dart';
 
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
               //'/test'
               //'/intro'
               //'/map'
-              '/newaddress',
+              '/main',
           routes: {
             '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
        
             '/settingmain': (context) => SettingMain(),
             '/orderhistory': (context) => OrderHistory(),
+            '/ordersuccess': (context) => OrderSuccess(),
             '/myaddress': (context) => MyAddress(),
             '/newaddress': (context) => NewAddress(),
             '/mycard': (context) => MyCard(),

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
@@ -67,7 +68,6 @@ class _MyLocationState extends State<MyLocation> {
   void gett(double lan, double long) async {
     final query = "74/253 รามอินทรา";
     var addresses = Geocoder.local.findAddressesFromQuery(query);
-    var first;
     addresses.then((d) {
       print('${d.first.featureName} ${d.first.coordinates}');
     });
@@ -128,9 +128,9 @@ class _MyLocationState extends State<MyLocation> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+
     final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -144,7 +144,7 @@ class _MyLocationState extends State<MyLocation> {
                 children: [
                   ClipPath(
                     child: SizedBox(
-                      height: 370.h + 20.h,
+                      height: 1.sh/2.1,
                       width: double.infinity,
                       child: Center(
                         child: GoogleMap(
@@ -206,10 +206,7 @@ class _MyLocationState extends State<MyLocation> {
                           ),
                           Text(
                             "Select your location form the map",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 30.sp,
-                                fontFamily: 'avenirH'),
+                            style:h30,
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
@@ -217,10 +214,7 @@ class _MyLocationState extends State<MyLocation> {
                           ),
                           Text(
                             "Move the pin on the map to find your location and select the delivery address.",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'avenirB'),
+                            style: b14.copyWith(color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
@@ -231,6 +225,7 @@ class _MyLocationState extends State<MyLocation> {
                             children: [
                               TextField(
                                 onChanged: (String msg) {},
+                                readOnly: true,
                                 controller: textAddress,
                                 cursorColor: Color(0xffAA7E6F),
                                 decoration: InputDecoration(
@@ -269,7 +264,7 @@ class _MyLocationState extends State<MyLocation> {
                               fuction: () {
                                 Navigator.pop(context);
                               },
-                              message: "APPLY",
+                              message: "NEXT",
                               width: 240.w,
                             ),
                           ),
@@ -279,8 +274,10 @@ class _MyLocationState extends State<MyLocation> {
                           Align(
                             child: ButtonFill2(
                               color: brownGoldColor.withOpacity(0.16),
-                              fuction: () {},
-                              message: "CLEAR FILTER",
+                              fuction: () {
+                                Navigator.pushNamed(context, '/newaddress');
+                              },
+                              message: "ADD IT MANUALLY",
                               width: 240.w,
                             ),
                           ),

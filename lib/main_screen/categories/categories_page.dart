@@ -306,7 +306,8 @@ class SeeAllPage extends ConsumerWidget {
                             bottom: 0,
                             child: SvgPicture.asset(
                               'assets/icons/Icons-icon-added-to-fav.svg',
-                              width: 28.w,
+                              width: 28,
+                              height: 28,
                             ),
                           )
                       ],

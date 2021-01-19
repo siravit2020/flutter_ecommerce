@@ -67,7 +67,7 @@ class MyAddress extends ConsumerWidget {
                       minWidth: w5 * 3,
                       padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/newaddress');
+                        Navigator.pushNamed(context, '/mylocation');
                       },
                       color: brownGoldColor,
                       textColor: Colors.white,

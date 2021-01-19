@@ -6,8 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'loading_screen/loading_page.dart';
 
 enum SingingCharacter { lafayette, jefferson }
 
@@ -37,42 +41,20 @@ class OrderDetail extends ConsumerWidget {
     final w = MediaQuery.of(context).size.width;
     final w5 = MediaQuery.of(context).size.width / 5;
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
-    final charecter = watch(_characterState);
+
     final radio = watch(_radioState);
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "MY ADDRESS",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
+          appBar: StandardAppbar(
+            title: "MY ADDRESS",
           ),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(20.0),
-                topRight: const Radius.circular(20.0),
-              ),
-            ),
+            decoration: whiteCorner,
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -85,27 +67,23 @@ class OrderDetail extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             SizedBox(
-                              height: 40,
+                              height: 41.h,
                             ),
                             detailsOrder("SHIPPING TO",
                                 "Dereboyu Cad. 23, \n34410 - Istanbul/Türkiye"),
                             Divider(
                               thickness: 1,
-                              height: 62,
+                              height: 62.h,
                             ),
                             detailsOrder("PAY WITH CREDIT CARD",
                                 "XXXX - XXXX - XXXX - 9123"),
                             Divider(
                               thickness: 1,
-                              height: 62,
+                              height: 62.h,
                             ),
                             Text(
                               "ORDER DETAILS",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'avenirB',
-                                color: textGrey,
-                              ),
+                              style: b14,
                             ),
                             SizedBox(
                               height: 3,
@@ -117,7 +95,7 @@ class OrderDetail extends ConsumerWidget {
                                   Image(
                                     image: AssetImage(
                                         'assets/image/${item.image}'),
-                                    width: 90,
+                                    height: 90.h,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -125,22 +103,15 @@ class OrderDetail extends ConsumerWidget {
                                     children: [
                                       Text(
                                         item.name,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'avenirB',
-                                          color: Colors.black,
-                                        ),
+                                        style:
+                                            b14.copyWith(color: Colors.black),
                                       ),
                                       SizedBox(
                                         height: 8,
                                       ),
                                       Text(
                                         item.price,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: 'avenirH',
-                                          color: Colors.black,
-                                        ),
+                                        style: h20,
                                       ),
                                     ],
                                   )
@@ -148,15 +119,11 @@ class OrderDetail extends ConsumerWidget {
                               ),
                             Divider(
                               thickness: 1,
-                              height: 62,
+                              height: 62.h,
                             ),
                             Text(
                               "SHIPPING METHOD",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'avenirB',
-                                color: textGrey,
-                              ),
+                              style: b14,
                             ),
                             SizedBox(
                               height: 22,
@@ -164,25 +131,25 @@ class OrderDetail extends ConsumerWidget {
                             rowRadio(radio, 0, method[0].method,
                                 method[0].price, brownGoldColor),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
-                            rowRadio(radio, 1, method[1].method, method[1].price,
-                                Colors.black),
+                            rowRadio(radio, 1, method[1].method,
+                                method[1].price, Colors.black),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
-                            rowRadio(radio, 2, method[2].method, method[2].price,
-                                Colors.black),
+                            rowRadio(radio, 2, method[2].method,
+                                method[2].price, Colors.black),
                             SizedBox(
-                              height: 41,
+                              height: 41.h,
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                           color: Colors.black,
-                          borderRadius: new BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                             topLeft: const Radius.circular(20.0),
                             topRight: const Radius.circular(20.0),
                           ),
@@ -194,7 +161,7 @@ class OrderDetail extends ConsumerWidget {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 31,
+                                  height: 31.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -202,24 +169,16 @@ class OrderDetail extends ConsumerWidget {
                                   children: [
                                     Text(
                                       "SUBTOTAL",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'avenirB',
-                                        color: Colors.white,
-                                      ),
+                                      style: b14.copyWith(color: Colors.white),
                                     ),
                                     Text(
                                       "€13.650",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'avenirBl',
-                                        color: Colors.white,
-                                      ),
+                                      style: b14.copyWith(color: Colors.white),
                                     ),
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 16,
+                                  height: 16.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -227,24 +186,28 @@ class OrderDetail extends ConsumerWidget {
                                   children: [
                                     Text(
                                       "SHIPPING",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'avenirB',
-                                        color: Colors.white,
-                                      ),
+                                      style: b14.copyWith(color: Colors.white),
                                     ),
                                     Text(
-                                      (!radio.radio[0] && !radio.radio[1] && !radio.radio[2])?"Please select":method[radio.index].price,
+                                      (!radio.radio[0] &&
+                                              !radio.radio[1] &&
+                                              !radio.radio[2])
+                                          ? "Please select"
+                                          : method[radio.index].price,
                                       style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontFamily: 'avenirBl',
-                                        color: (!radio.radio[0] && !radio.radio[1] && !radio.radio[2])?Colors.white.withOpacity(0.5):Colors.white,
+                                        color: (!radio.radio[0] &&
+                                                !radio.radio[1] &&
+                                                !radio.radio[2])
+                                            ? Colors.white.withOpacity(0.5)
+                                            : Colors.white,
                                       ),
                                     ),
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 35,
+                                  height: 35.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -252,28 +215,34 @@ class OrderDetail extends ConsumerWidget {
                                   children: [
                                     Text(
                                       "Total to Pay",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'avenirH',
-                                        color: Colors.white,
-                                      ),
+                                      style: h20.copyWith(color: Colors.white),
                                     ),
                                     Text(
                                       "€13.650",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'avenirH',
-                                        color: Colors.white,
-                                      ),
+                                      style: h20.copyWith(color: Colors.white),
                                     ),
                                   ],
                                 ),
-                                 SizedBox(
-                                  height: 22,
-                                ),
-                                ButtonFill(color: brownGoldColor,fuction: (){},message: "PLACE ORDER",width: w5*3,),
                                 SizedBox(
-                                  height: 22,
+                                  height: 22.h,
+                                ),
+                                ButtonFill(
+                                  color: brownGoldColor,
+                                  fuction: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => LoadingPage(
+                                          nextPage: '/ordersuccess',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  message: "PLACE ORDER",
+                                  width: w5 * 3,
+                                ),
+                                SizedBox(
+                                  height: 16.5.h,
                                 ),
                               ],
                             ),
@@ -323,22 +292,18 @@ class OrderDetail extends ConsumerWidget {
               ),
             ),
             SizedBox(
-              width: 10,
+              width: 10.w,
             ),
             Text(
               title,
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'avenirB',
-                color: Colors.black,
-              ),
+              style: b14.copyWith(color: Colors.black),
             ),
           ],
         ),
         Text(
           price,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 14.sp,
             fontFamily: 'avenirB',
             color: color,
           ),
@@ -356,11 +321,7 @@ class OrderDetail extends ConsumerWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'avenirB',
-                color: textGrey,
-              ),
+              style: b14,
             ),
             Text(
               "Change",
@@ -373,15 +334,15 @@ class OrderDetail extends ConsumerWidget {
           ],
         ),
         SizedBox(
-          height: 24,
+          height: 24.h,
         ),
         Container(
-          width: 200,
+          width: 200.w,
           child: Text(
             address,
             style: TextStyle(
               height: 1.4,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontFamily: 'avenirB',
               color: Colors.black,
             ),
