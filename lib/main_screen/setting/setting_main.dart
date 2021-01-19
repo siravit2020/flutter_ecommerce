@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../color_plate.dart';
 
 class SettingMain extends StatelessWidget {
@@ -25,7 +26,7 @@ class SettingMain extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          SizedBox(height: 16.5),
+          SizedBox(height: 16.5.h),
           Stack(
             children: [
               Container(
@@ -64,20 +65,18 @@ class SettingMain extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 22.5),
+          SizedBox(height: 22.5.h),
           Text(
             "Ugur Ates",
-            style: TextStyle(
-                color: Colors.black, fontSize: 20, fontFamily: 'avenirH'),
+            style: h20,
           ),
           SizedBox(height: 1),
           Text(
             "ugurates19@gmail.com",
-            style: TextStyle(
-                color: Colors.black, fontSize: 14, fontFamily: 'avenirB'),
+            style: b14.copyWith(color: Colors.black),
           ),
           SizedBox(height: 2),
-          newMethod(w, "Order History"),
+          newMethod(context,w, "Order History","orderhistory"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -85,7 +84,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "My Addresses"),
+          newMethod(context,w, "My Addresses","myaddress"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -93,7 +92,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "My Cards"),
+          newMethod(context,w, "My Cards","mycard"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -101,7 +100,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "Vouches"),
+          newMethod(context,w, "Vouches","myvouches"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -109,7 +108,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "Nearby Stores"),
+          newMethod(context,w, "Nearby Stores","map"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -117,7 +116,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "Latest Articles"),
+          newMethod(context,w, "Latest Articles","latest"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -125,7 +124,7 @@ class SettingMain extends StatelessWidget {
               height: 0,
             ),
           ),
-          newMethod(w, "Setting"),
+          newMethod(context,w, "Setting","setting"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: Divider(
@@ -134,23 +133,24 @@ class SettingMain extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 30.h,
           )
         ],
       ),
     );
   }
 
-  GestureDetector newMethod(double w, String title) {
+  GestureDetector newMethod(BuildContext context,double w, String title,String page) {
     return GestureDetector(
       onTap: () {
         print(title);
+        Navigator.pushNamed(context, '/$page');
       },
       child: Container(
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(
-              top: 30, bottom: 16, right: w * 0.08 + 10, left: w * 0.08 + 10),
+              top: 30.h, bottom: 16.h, right: w * 0.08 + 10.w, left: w * 0.08 + 10.w),
           child: Column(
             children: [
               Column(
@@ -160,10 +160,7 @@ class SettingMain extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'avenirB'),
+                        style: b16,
                       ),
                      
                       SvgPicture.asset(

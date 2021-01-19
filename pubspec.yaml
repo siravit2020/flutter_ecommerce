@@ -26,7 +26,7 @@ dependencies:
   flutter_svg: ^0.19.1
   smooth_page_indicator: ^0.2.0
   flutter_riverpod: ^0.12.1
-  flutter_statusbarcolor: ^0.2.3
+
   pin_code_fields: ^6.0.2
   flutter_screenutil: ^4.0.2+3
   flutter_xlider: ^3.4.0
@@ -61,6 +61,7 @@ flutter:
   assets:
     - assets/image/
     - assets/icons/
+    - assets/data.json
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

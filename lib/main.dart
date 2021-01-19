@@ -19,21 +19,14 @@ import 'package:flutter_ecommerce/more_detail.dart';
 import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/reset_password_screen/reset_password_page.dart';
-import 'package:flutter_ecommerce/search_screen/search_page.dart';
-import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
-import 'package:flutter_ecommerce/test13.dart';
-import 'package:flutter_ecommerce/test14.dart';
+import 'package:flutter_ecommerce/select_country.dart';
 
-import 'package:flutter_ecommerce/test3.dart';
-import 'package:flutter_ecommerce/test4.dart';
-import 'package:flutter_ecommerce/test5.dart';
-import 'package:flutter_ecommerce/test7.dart';
-import 'package:flutter_ecommerce/test9.dart';
+import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
+
 import 'package:flutter_ecommerce/test_map/map_test.dart';
 import 'package:flutter_ecommerce/verification.dart/verification_page.dart';
 import 'package:flutter_ecommerce/verification.dart/verified.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_screen/intro_page.dart';
 import 'intro_screen/page2.dart';
@@ -43,7 +36,7 @@ import 'main_screen/categories/product_detail_page.dart';
 import 'register_screen/register_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'seach_and_hastag/hastag.dart';
-import 'test2.dart';
+import 'seach_and_hastag/search_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -77,7 +70,7 @@ class MyApp extends StatelessWidget {
               //'/test'
               //'/intro'
               //'/map'
-              '/main',
+              '/newaddress',
           routes: {
             '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
@@ -90,7 +83,7 @@ class MyApp extends StatelessWidget {
             '/forgot': (context) => ResetPassword(),
             '/login': (context) => LoginPage(),
             '/sendemail': (context) => SendEmail(),
-            '/test': (context) => Test14(),
+       
             '/settingmain': (context) => SettingMain(),
             '/orderhistory': (context) => OrderHistory(),
             '/myaddress': (context) => MyAddress(),
@@ -102,8 +95,11 @@ class MyApp extends StatelessWidget {
             '/orderstatus': (context) => OrderStatus(),
             '/orderdetail': (context) => OrderDetail(),
             '/map': (context) => MapFull(),
-            '/mylocation': (context) => MyLocation()
-            
+            '/mylocation': (context) => MyLocation(),
+            '/testload': (context) => LoadingPage(
+                  nextPage: "null",
+                )
+
             //Test13()
             ,
             //'/loading': (context) => LoadingPage(),

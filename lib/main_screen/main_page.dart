@@ -8,7 +8,8 @@ import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_screen/login_page.dart';
 
 import 'package:flutter_ecommerce/seach_and_hastag/hastag.dart';
-
+import 'package:flutter_ecommerce/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,21 +54,17 @@ class MainPageState extends ConsumerWidget {
             floating: false,
             pinned: true,
             snap: false,
-            expandedHeight: (selectedIndex.state == 3) ? 140 : 0,
+            expandedHeight: (selectedIndex.state == 3) ? 140.h : 0,
             flexibleSpace: (selectedIndex.state == 3)
                 ? FlexibleSpaceBar(
                     background: Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: 20.h),
                         child: Text(
                           "Seems like you don’t have any items \n in your favorite list.",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: Color(0xff676870),
-                          ),
+                          style: b14,
                         ),
                       ),
                     ),
@@ -123,8 +120,7 @@ class MainPageState extends ConsumerWidget {
             backgroundColor: Colors.black,
             title: Text(
               titleAppbar.state,
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
+              style: b13.copyWith(color: Colors.white),
             ),
           ),
           SliverToBoxAdapter(

@@ -2,12 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../test5.dart';
+
 
 class VerifiedPage extends ConsumerWidget {
   const VerifiedPage({Key key}) : super(key: key);
@@ -28,9 +31,9 @@ class VerifiedPage extends ConsumerWidget {
         children: [
           Positioned(
             top: kToolbarHeight,
-            right: 18,
+            right: 18.w,
             child: Padding(
-              padding: const EdgeInsets.only(top: 8),
+              padding: EdgeInsets.only(top: 8.h),
               child: SvgPicture.asset('assets/icons/close.svg'),
             ),
           ),
@@ -46,52 +49,34 @@ class VerifiedPage extends ConsumerWidget {
                       icon: 'verified.svg',
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 25.h,
                     ),
                     Text(
                       "Phone verified",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontFamily: 'avenirB'),
+                      style:h30,
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 16.h,
                     ),
                     Text(
                         "Congratulations, your phone number has been \n verified. You can now start using the app.",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'avenirB',
-                        ),
+                        style: b14,
                         textAlign: TextAlign.center),
                   ],
                 ),
               ),
-              FlatButton(
-                minWidth: w5 * 3,
-                padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
-                onPressed: () {
+           
+              ButtonFill(
+                width: w5 * 3,
+                message: "CONTINUED",
+                color: brownGoldColor,
+                fuction: () {
                   Navigator.pushNamed(context, '/');
                 },
-                color: brownGoldColor,
-                textColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(22.0),
-                ),
-                child: Text(
-                  "CONTINUED",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontFamily: 'avenirM',
-                    letterSpacing: 2,
-                  ),
-                ),
               ),
               SizedBox(
-                height: 16.5,
+                height: 16.5.h,
               ),
             ],
           ),

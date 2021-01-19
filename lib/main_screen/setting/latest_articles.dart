@@ -5,9 +5,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LatestArticles extends ConsumerWidget {
   const LatestArticles({Key key}) : super(key: key);
 
@@ -19,37 +20,13 @@ class LatestArticles extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "LATEST ARTICLES",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
-          ),
+          appBar: StandardAppbar(title: "LATEST ARTICLES",),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(20.0),
-                topRight: const Radius.circular(20.0),
-              ),
-            ),
+            decoration: whiteCorner,
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: w * 0.08),
@@ -58,11 +35,11 @@ class LatestArticles extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      height: 40,
+                      height: 41.h,
                     ),
                     item("“Soteria” Vase buy in the next year", "SoteriaVase.png"),
                     SizedBox(
-                      height: 21,
+                      height: 21.h,
                     ),
                      item("“Devr-i Alem” Flask buy in the next year", "KavukVase.png"),
                     SizedBox(
@@ -82,7 +59,7 @@ class LatestArticles extends ConsumerWidget {
         Stack(
           children: [
             Container(
-              height: 200,
+              height: 200.h,
               width: double.infinity,
               decoration: new BoxDecoration(
                 color: Colors.black,
@@ -93,8 +70,8 @@ class LatestArticles extends ConsumerWidget {
               ),
             ),
             Positioned(
-              bottom: 15.5,
-              right: 10.5,
+              bottom: 15.5.h,
+              right: 10.5.w,
               child: SvgPicture.asset(
                 'assets/icons/Icons-icon-added-to-fav.svg',
                 width: 30,
@@ -104,18 +81,14 @@ class LatestArticles extends ConsumerWidget {
           ],
         ),
         SizedBox(
-          height: 31,
+          height: 31.h,
         ),
         Text(
           title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontFamily: 'avenirH',
-          ),
+          style: h24,
         ),
         SizedBox(
-          height: 10,
+          height: 10.h,
         ),
         Row(
           children: [
@@ -125,31 +98,23 @@ class LatestArticles extends ConsumerWidget {
               height: 11,
             ),
             SizedBox(
-              width: 6.5,
+              width: 6.5.w,
             ),
             Text(
               "24th February 2020",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontFamily: 'avenirB',
-              ),
+              style: b14.copyWith(color: Colors.black),
             ),
           ],
         ),
         SizedBox(
-          height: 13,
+          height: 13.h,
         ),
         Text(
           "Flasks are vessels that utilised during military service or on journeys, carried hanging from the waist or the neck….",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontFamily: 'avenirB',
-          ),
+          style: b14.copyWith(color: Colors.black),
         ),
         SizedBox(
-          height: 21,
+          height: 21.h,
         ),
         GestureDetector(
           onTap: () {
@@ -159,8 +124,7 @@ class LatestArticles extends ConsumerWidget {
             children: [
               Text(
                 "Discover more",
-                style: TextStyle(
-                    color: brownGoldColor, fontSize: 14, fontFamily: 'avenirB'),
+                style: b14.copyWith(color: brownGoldColor),
                 textAlign: TextAlign.start,
               ),
               SizedBox(

@@ -52,16 +52,13 @@ class LoginPage extends ConsumerWidget {
     final passwordColor = watch(passwordColorState);
     final w = 1.sw;
     final w5 = w / 5;
-    final height = 1.sh - kToolbarHeight;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomPadding: false ,
           backgroundColor: Colors.black,
           appBar: StandardAppbar(title: "LOGIN",),
           body: Container(
-            constraints: new BoxConstraints(
-              minHeight: height,
-            ),
             decoration: whiteCorner,
             child: Stack(
               children: [

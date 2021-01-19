@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../color_plate.dart';
 import '../../constants.dart';
 import '../riverpod_main.dart';
-
 
 final changePageState = StateProvider<int>((ref) {
   return 0;
@@ -20,8 +20,6 @@ class CategoriesPage extends ConsumerWidget {
   ];
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
     final height = MediaQuery.of(context).size.height -
         kToolbarHeight -
         MediaQuery.of(context).padding.top;
@@ -32,13 +30,7 @@ class CategoriesPage extends ConsumerWidget {
       constraints: new BoxConstraints(
         minHeight: height,
       ),
-      decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: new BorderRadius.only(
-          topLeft: const Radius.circular(20.0),
-          topRight: const Radius.circular(20.0),
-        ),
-      ),
+      decoration: whiteCorner,
       child: SingleChildScrollView(
         child: _widgetList[changePage.state],
       ),
@@ -51,70 +43,66 @@ class MainPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
+    final w5 = 1.sw / 5;
     final changePage = watch(changePageState);
     final titleAppbar = watch(titleAppbarState);
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 44,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 44,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+          child: Text(
+            "Ottoman Collection Classic Collections",
+            style: TextStyle(
+                color: Colors.black, fontSize: 30, fontFamily: 'avenirH'),
+            textAlign: TextAlign.center,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Text(
-              "Ottoman Collection \n Classic Collections",
+        ),
+        SizedBox(
+          height: 11.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+          child: Text("Search through more than 1000+ watches",
               style: TextStyle(
-                  color: Colors.black, fontSize: 30, fontFamily: 'avenirH'),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Text("Search through more than 1000+ watches",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'avenirB',
-                ),
-                textAlign: TextAlign.center),
-          ),
-          SizedBox(
-            height: 27.5,
-          ),
-          rowSeeAll("Categories", w5, changePage, titleAppbar),
-          SizedBox(
-            height: 10,
-          ),
-          rowItem(categoriesName, categoriesPrice, categoriesImage),
-          SizedBox(
-            height: 28,
-          ),
-          rowSeeAll(
-              "Anatolian Civilizations Catalog", w5, changePage, titleAppbar),
-          SizedBox(
-            height: 10,
-          ),
-          rowItem(featuredName, featuredPrice, featuredImage),
-          SizedBox(
-            height: 28,
-          ),
-          rowSeeAll("Zevk-i Selim Catalog", w5, changePage, titleAppbar),
-          SizedBox(
-            height: 10,
-          ),
-          rowItem(featuredName2, featuredPrice2, featuredImage2),
-          SizedBox(
-            height: 34.5,
-          ),
-        ],
-      ),
+                color: Colors.black,
+                fontSize: 14,
+                fontFamily: 'avenirB',
+              ),
+              textAlign: TextAlign.center),
+        ),
+        SizedBox(
+          height: 24.h,
+        ),
+        rowSeeAll("Limited Edition", w5, changePage, titleAppbar),
+        SizedBox(
+          height: 10.h,
+        ),
+        rowItem(categoriesName, categoriesPrice, categoriesImage),
+        SizedBox(
+          height: 28.h,
+        ),
+        rowSeeAll(
+            "Anatolian Civilizations Catalog", w5, changePage, titleAppbar),
+        SizedBox(
+          height: 10.h,
+        ),
+        rowItem(featuredName, featuredPrice, featuredImage),
+        SizedBox(
+          height: 28.h,
+        ),
+        rowSeeAll("Zevk-i Selim Catalog", w5, changePage, titleAppbar),
+        SizedBox(
+          height: 10.h,
+        ),
+        rowItem(featuredName2, featuredPrice2, featuredImage2),
+        SizedBox(
+          height: 16.5.h,
+        ),
+      ],
     );
   }
 
@@ -126,15 +114,16 @@ class MainPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: w5 * 4,
-            ),
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontFamily: 'avenirH'),
-              textAlign: TextAlign.start,
+          Expanded(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: w5 * 4,
+              ),
+              child: Text(
+                title,
+                style: h20,
+                textAlign: TextAlign.start,
+              ),
             ),
           ),
           GestureDetector(
@@ -147,14 +136,11 @@ class MainPage extends ConsumerWidget {
               children: [
                 Text(
                   "See all",
-                  style: TextStyle(
-                      color: brownGoldColor,
-                      fontSize: 14,
-                      fontFamily: 'avenirB'),
+                  style: b14.copyWith(color: brownGoldColor),
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
-                  width: 4.3,
+                  width: 4.3.w,
                 ),
                 SvgPicture.asset(
                   'assets/icons/doubleArrows.svg',
@@ -172,7 +158,7 @@ class MainPage extends ConsumerWidget {
   SizedBox rowItem(
       List<String> listName, List<String> listPrice, List<String> listIamge) {
     return SizedBox(
-      height: 230,
+      height: 230.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoriesImage.length,
@@ -186,12 +172,12 @@ class MainPage extends ConsumerWidget {
                   children: [
                     Image(
                       image: AssetImage('assets/image/${listIamge[index]}'),
-                      width: 150,
+                      height: 150.h,
                     ),
                     if (ran == 0)
                       Positioned(
                         right: 0,
-                        top: 10,
+                        top: 10.h,
                         child: Container(
                           decoration: new BoxDecoration(
                               color: brownGoldColor,
@@ -202,10 +188,7 @@ class MainPage extends ConsumerWidget {
                           padding: EdgeInsets.all(4),
                           child: Text(
                             "-${Random().nextInt(50) + 20}%",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: 'avenirB'),
+                            style: b12.copyWith(color: Colors.white),
                           ),
                         ),
                       ),
@@ -215,29 +198,26 @@ class MainPage extends ConsumerWidget {
                         bottom: 0,
                         child: SvgPicture.asset(
                           'assets/icons/Icons-icon-added-to-fav.svg',
-                          width: 28,
-                          height: 28,
+                          width: 28.w,
                         ),
                       )
                   ],
                 ),
               ),
               SizedBox(
-                height: 10.5,
+                height: 10.5.h,
               ),
               Text(
                 listName[index],
-                style: TextStyle(
-                    color: Colors.black, fontSize: 14, fontFamily: 'avenirB'),
+                style: b14.copyWith(color: Colors.black),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 5,
+                height: 5.h,
               ),
               Text(
                 listPrice[index],
-                style: TextStyle(
-                    color: Colors.black, fontSize: 24, fontFamily: 'avenirM'),
+                style: h20,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -257,143 +237,124 @@ class SeeAllPage extends ConsumerWidget {
     final titleAppbar = watch(titleAppbarState);
     return Stack(
       children: [
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 44,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 44.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+              child: Text(
+                "Add a Signature\nto Your Look",
+                style: h30,
+                textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                child: Text(
-                  "Add a Signature\nto Your Look",
-                  style: TextStyle(
-                      color: Colors.black, fontSize: 30, fontFamily: 'avenirH'),
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+              child: Text("The latest styles of men's leather watches",
+                  style: b14, textAlign: TextAlign.center),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: collection.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 211.w / 250.h,
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                child: Text("The latest styles of men's leather watches",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontFamily: 'avenirB',
-                    ),
-                    textAlign: TextAlign.center),
-              ),
-              SizedBox(
-                height: 27.5,
-              ),
-              GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: collection.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: w / 2 / 230,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  var ran = Random().nextInt(2);
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Image(
-                            image: AssetImage(
-                                'assets/image/${collection[index].image}'),
-                            width: 150,
-                          ),
-                          if (ran == 0)
-                            Positioned(
-                              right: 0,
-                              top: 10,
-                              child: Container(
-                                decoration: new BoxDecoration(
-                                    color: brownGoldColor,
-                                    borderRadius: new BorderRadius.only(
-                                      bottomLeft: const Radius.circular(4),
-                                      topRight: const Radius.circular(4),
-                                    )),
-                                padding: EdgeInsets.all(4),
-                                child: Text(
-                                  "-${Random().nextInt(50) + 20}%",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontFamily: 'avenirB'),
-                                ),
+              itemBuilder: (BuildContext context, int index) {
+                var ran = Random().nextInt(2);
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Image(
+                          image: AssetImage(
+                              'assets/image/${collection[index].image}'),
+                          height: 150.h,
+                        ),
+                        if (ran == 0)
+                          Positioned(
+                            right: 0,
+                            top: 10.h,
+                            child: Container(
+                              decoration: new BoxDecoration(
+                                  color: brownGoldColor,
+                                  borderRadius: new BorderRadius.only(
+                                    bottomLeft: const Radius.circular(4),
+                                    topRight: const Radius.circular(4),
+                                  )),
+                              padding: EdgeInsets.all(4),
+                              child: Text(
+                                "-${Random().nextInt(50) + 20}%",
+                                style: b12.copyWith(color: Colors.white),
                               ),
                             ),
-                          if (ran == 0)
-                            Positioned(
-                              right: 0,
-                              bottom: 0,
-                              child: SvgPicture.asset(
-                                'assets/icons/Icons-icon-added-to-fav.svg',
-                                width: 28,
-                                height: 28,
-                              ),
-                            )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.5,
-                      ),
-                      Text(
-                        collection[index].name,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'avenirB'),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        collection[index].price,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontFamily: 'avenirM'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              SizedBox(
-                height: 51,
-              ),
-              ButtonFill(
-                message: "LOAD COLLECTION",
-                color: brownGoldColor,
-                fuction: () {},
-                width: w5 * 3,
-              ),
-              SizedBox(
-                height: 47,
-              ),
-            ],
-          ),
+                          ),
+                        if (ran == 0)
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: SvgPicture.asset(
+                              'assets/icons/Icons-icon-added-to-fav.svg',
+                              width: 28.w,
+                            ),
+                          )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.5.h,
+                    ),
+                    Text(
+                      collection[index].name,
+                      style: b14.copyWith(color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      collection[index].price,
+                      style: m24,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                );
+              },
+            ),
+            SizedBox(
+              height: 57.h,
+            ),
+            ButtonFill(
+              message: "LOAD COLLECTION",
+              color: brownGoldColor,
+              fuction: () {},
+              width: w5 * 3,
+            ),
+            SizedBox(
+              height: 41.5.h,
+            ),
+          ],
         ),
         Positioned(
-          top: 10,
-          left: 10,
+          top: 10.h,
+          left: 10.w,
           child: Material(
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(100))),
             color: Colors.transparent,
             child: IconButton(
-              color: Colors.grey,
+              color: Colors.grey.withOpacity(0.5),
               splashRadius: 20,
               onPressed: () {
                 changePage.state = 0;

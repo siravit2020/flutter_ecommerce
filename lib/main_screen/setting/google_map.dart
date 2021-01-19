@@ -53,8 +53,8 @@ class _MapFullState extends State<MapFull> {
         icon: mapMarker2,
         markerId: MarkerId('$i'),
         position: LatLng(
-            13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)),
-            100.6 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0))),
+            location.latitude + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)),
+            location.longitude + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0))),
       );
       _marker.add(m);
     }
@@ -84,7 +84,6 @@ class _MapFullState extends State<MapFull> {
   void gett(double lan, double long) async {
     final query = "74/253 รามอินทรา";
     var addresses = Geocoder.local.findAddressesFromQuery(query);
-    var first;
     addresses.then((d) {
       print('${d.first.featureName} ${d.first.coordinates}');
     });
@@ -140,14 +139,7 @@ class _MapFullState extends State<MapFull> {
       status = true;
       setCustomMarker();
     });
-    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
-    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
-    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
-    print(13.8 + (0.001 * randomDoubleInRange(min: 0.0, max: 20.0)));
-    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
-    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
-    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
-    print(100 + (0.001 * randomDoubleInRange(min: 80.0, max: 99.0)));
+ 
     super.initState();
   }
 
@@ -163,6 +155,17 @@ class _MapFullState extends State<MapFull> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+        splashRadius: 20,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: SvgPicture.asset(
+          'assets/icons/backArrow.svg',
+          color: Colors.black,
+          width: 20.w,
+        ),
+      ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),

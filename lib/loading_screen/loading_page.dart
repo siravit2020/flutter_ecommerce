@@ -3,8 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LoadingPage extends StatefulWidget {
   const LoadingPage({Key key, this.nextPage}) : super(key: key);
   final String nextPage;
@@ -162,7 +163,7 @@ class _LoadingPageState extends State<LoadingPage> {
           ),
           Text(
             "LOADING",
-            style: TextStyle(color: brownGoldColor, letterSpacing: 5),
+            style: m13.copyWith(color: brownGoldColor,letterSpacing: 2),
           ),
         ],
       ),

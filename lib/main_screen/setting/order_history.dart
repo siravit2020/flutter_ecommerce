@@ -5,80 +5,56 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class OrderHistory extends ConsumerWidget {
   const OrderHistory({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
+
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "ORDER HISTORY",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
-          ),
+          appBar: StandardAppbar(title: "ORDER HISTORY",),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(20.0),
-                topRight: const Radius.circular(20.0),
-              ),
-            ),
+            decoration:whiteCorner,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+                padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      height: 40,
+                      height: 41.h,
                     ),
                     detailsOrder(21412,"23th of January", "230.99", "Delivered"),
                     Divider(
                       thickness: 1,
-                      height: 62,
+                      height: 62.h,
                     ),
                     detailsOrder(21403,"31st of December", "99.00", "Delivered"),
                     Divider(
                       thickness: 1,
-                      height: 62,
+                      height: 62.h,
                     ),
                     detailsOrder(21358,"14th of November", "599.00", "Delivered"),
                     Divider(
                       thickness: 1,
-                      height: 62,
+                      height: 62.h,
                     ),
                     detailsOrder(21313,"2nd ot December", "599.00", "Delivered"),
                     Divider(
                       thickness: 1,
-                      height: 62,
+                      height: 62.h,
                     )
                   ],
                 ),
@@ -97,24 +73,16 @@ class OrderHistory extends ConsumerWidget {
           children: [
             Text(
               "ORDER #$order",
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'avenirB',
-                color: textGrey,
-              ),
+              style: b14,
             ),
             Text(
               "View Details",
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'avenirB',
-                color: brownGoldColor,
-              ),
+              style: b14.copyWith(color: brownGoldColor),
             ),
           ],
         ),
              SizedBox(
-          height: 24,
+          height: 24.h,
         ),
         Row(
           children: [
@@ -123,71 +91,47 @@ class OrderHistory extends ConsumerWidget {
               children: [
                 Text(
                   "Placed On:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
                 SizedBox(
-                  height: 11,
+                  height: 11.h,
                 ),
                 Text(
                   "Amount:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
                 SizedBox(
-                  height: 11,
+                  height: 11.h,
                 ),
                 Text(
                   "Status:",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
               ],
             ),
             SizedBox(
-              width: 9,
+              width: 9.w,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   placedOn,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
                 SizedBox(
-                  height: 11,
+                  height: 11.h,
                 ),
                 Text(
                   "\$$amount",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
                 SizedBox(
-                  height: 11,
+                  height: 11.h,
                 ),
                 Text(
                   status,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'avenirB',
-                    color: Colors.black,
-                  ),
+                  style: b14.copyWith(color: Colors.black),
                 ),
               ],
             )

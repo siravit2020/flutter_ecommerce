@@ -6,10 +6,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_custom_switch/flutter_custom_switch.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 final switchState = StateProvider<bool>((ref) {
   return false;
 });
@@ -26,37 +27,13 @@ class Setting extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/backArrow.svg',
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-            title: Text(
-              "SETTING",
-              style: TextStyle(
-                  fontSize: 13, fontFamily: 'avenirB', color: Colors.white),
-            ),
-          ),
+          appBar: StandardAppbar(title: "SETTING",),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(20.0),
-                topRight: const Radius.circular(20.0),
-              ),
-            ),
+            decoration: whiteCorner,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,75 +45,59 @@ class Setting extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 41,
+                          height: 41.h,
                         ),
                         title("LANGUAGE", "Change"),
                         SizedBox(
-                          height: 14,
+                          height: 14.h,
                         ),
                         Text(
                           "English",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: Colors.black,
-                          ),
+                          style: b14.copyWith(color: Colors.black),
                         ),
                         Divider(
                           thickness: 1,
-                          height: 62,
+                          height: 62.h,
                         ),
                         title("PASSWORD", "Change"),
                         SizedBox(
-                          height: 14,
+                          height: 14.h,
                         ),
                         Text(
                           "• • • • • • • • • • • • • • • • • • • •",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: Colors.black,
-                          ),
+                          style: b14.copyWith(color: Colors.black),
                         ),
                         Divider(
                           thickness: 1,
-                          height: 62,
+                          height: 62.h,
                         ),
                         title("LOCATION", "EDIT"),
                         SizedBox(
-                          height: 14,
+                          height: 14.h,
                         ),
                         Text(
                           "Istanbul, TR",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: Colors.black,
-                          ),
+                          style: b14.copyWith(color: Colors.black),
                         ),
                         SizedBox(
-                          height: 9,
+                          height: 9.h,
                         ),
                         Divider(
                           thickness: 1,
-                          height: 52,
+                          height: 52.h,
                         ),
                       ],
                     ),
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(left: w * 0.08, right: w * 0.08 - 14),
+                        EdgeInsets.only(left: w * 0.08, right: w * 0.08 - 14.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "RECIVE NOTIFICATIONS",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: textGrey,
-                          ),
+                          style: b14,
                         ),
                         Transform.scale(
                           scale: 0.6,
@@ -152,42 +113,34 @@ class Setting extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 14,
+                    height: 14.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
-                     (switchChange.state)?"Enabled":"Dissbled",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'avenirB',
-                        color: Colors.black,
-                      ),
+                     (!switchChange.state)?"Enabled":"Dissbled",
+                      style: b14.copyWith(color: Colors.black),
                     ),
                   ),
                   SizedBox(
-                    height: 9,
+                    height: 9.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Divider(
                       thickness: 1,
-                      height: 52,
+                      height: 52.h,
                     ),
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(left: w * 0.08, right: w * 0.08 - 14),
+                        EdgeInsets.only(left: w * 0.08, right: w * 0.08 - 14.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "RECIVE NOTIFICATIONS",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'avenirB',
-                            color: textGrey,
-                          ),
+                          style: b14,
                         ),
                         Transform.scale(
                           scale: 0.6,
@@ -203,17 +156,13 @@ class Setting extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 14,
+                    height: 14.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
                       (switchChange.state)?"Enabled":"Dissbled",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'avenirB',
-                        color: Colors.black,
-                      ),
+                      style: b14.copyWith(color: Colors.black),
                     ),
                   ),
                 ],
@@ -229,19 +178,11 @@ class Setting extends ConsumerWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'avenirB',
-            color: textGrey,
-          ),
+          style: b14,
         ),
         Text(
           action,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'avenirB',
-            color: brownGoldColor,
-          ),
+          style: b14.copyWith(color: brownGoldColor),
         ),
       ],
     );

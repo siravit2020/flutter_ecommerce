@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
 const List<String> categoriesImage = [
   'ThankGodBowl.png',
   'KavukVase.png',
@@ -127,6 +125,11 @@ List<Collections> collection = [
   ),
 ];
 
+List<Card> cardDetail = [
+  Card("1234 5783 1231 9123","Ugur Ates","01","2025","312"),
+  Card("4562 1478 5731 1425","SCB","03","2026","142"),
+];
+
 List<Method> method = [
   Method("Standard Shipping (16 days)", "FREE"),
   Method("Express (8 days)", "€40"),
@@ -143,8 +146,28 @@ class Collections {
   Collections(this.image, this.name, this.price);
 }
 
+class Card {
+  String cardNumber;
+  String cardHolderName;
+  String month;
+  String year;
+  String cardHolder;
+  Card(
+    this.cardNumber,
+    this.cardHolderName,
+    this.month,
+    this.year,
+    this.cardHolder,
+  );
+}
+
 class Method {
   String method;
   String price;
   Method(this.method, this.price);
+}
+class Country {
+  String name;
+  String code;
+  Country(this.name, this.code);
 }

@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final w = 1.sw;
+    
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     return Container(
       width: double.infinity,
@@ -20,13 +20,13 @@ class StorePage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+        
           children: [
             SizedBox(
-              height: 44,
+              height: 44.h,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+              padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
               child: Text(
                 "Ottoman Collection",
                 style: h30,
@@ -37,37 +37,37 @@ class StorePage extends StatelessWidget {
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+              padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
               child: Text("Find the perfect watch for your wrist",
                   style: b14,
                   textAlign: TextAlign.center),
             ),
             SizedBox(
-              height: 27.5,
+              height: 27.5.h,
             ),
-            rowSeeAll("Limited Edition"),
+            rowSeeAll("Categories"),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             rowItem(categoriesName,categoriesPrice,categoriesImage),
             SizedBox(
-              height: 28,
+              height: 28.h,
             ),
             rowSeeAll("Top deals"),
             SizedBox(
-              height: 230,
+              height: 230.h,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: categoriesImage.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(left: 15),
+                    padding: EdgeInsets.only(left: 15.w),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: 160,
-                          width: 315,
+                          height: 160.h,
+                          width: 315.w,
                           decoration: BoxDecoration(
                             borderRadius:
                                 new BorderRadius.all(Radius.circular(4)),
@@ -81,42 +81,33 @@ class StorePage extends StatelessWidget {
                           ),
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: 30.5, top: 23.5),
+                                EdgeInsets.only(left: 30.5.w, top: 23.5.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                  width: 100,
+                                  width: 100.w,
                                   child: Text(
                                     "Gulcehre Ibrik",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontFamily: 'avenirH'),
+                                    style: h20.copyWith(color: Colors.white),
                                     textAlign: TextAlign.start,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 6,
+                                  height: 6.h,
                                 ),
                                 Text(
                                   "W:32cm H:26cm",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontFamily: 'avenirB'),
+                                  style: b14.copyWith(color: Colors.white),
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 10.h,
                                 ),
                                 Text(
                                   "€5650",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontFamily: 'avenirH'),
+                                  style: h24.copyWith(color: Colors.white),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -124,12 +115,12 @@ class StorePage extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          right: -20,
+                          right: -20.w,
                           bottom: 0,
                           child: Image(
                             image:
                                 AssetImage('assets/image/Gulcehre_ibrik.png'),
-                            width: 220,
+                            height: 220.h,
                           ),
                         ),
                       ],
@@ -139,48 +130,45 @@ class StorePage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 28,
+              height: 28.h,
             ),
             rowSeeAll("Featured products"),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             rowItem(featuredName,featuredPrice,featuredImage),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             rowItem(featuredName2,featuredPrice2,featuredImage2),
             SizedBox(
-              height: 28,
+              height: 28.h,
             ),
            rowSeeAll("Search by brand"),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             SizedBox(
-              height: 130,
+              height: 150.h,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: categoriesImage.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Column(
                       children: [
                         Image(
                           image: AssetImage(
                               'assets/image/${searchByImage[index]}'),
-                          width: 122,
+                         height: 122.h,
                         ),
                         SizedBox(
-                          height: 10.5,
+                          height: 10.5.h,
                         ),
                         Text(
                           searchByName[index],
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'avenirB'),
+                          style: b14.copyWith(color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -190,7 +178,7 @@ class StorePage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 16.5.h,
             ),
           ],
         ),
@@ -200,30 +188,24 @@ class StorePage extends StatelessWidget {
 
   Padding rowSeeAll(String title) {
     return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'avenirH'),
+                  style:h20,
                   textAlign: TextAlign.center,
                 ),
                 Row(
                   children: [
                     Text(
                       "See all",
-                      style: TextStyle(
-                          color: brownGoldColor,
-                          fontSize: 14,
-                          fontFamily: 'avenirB'),
+                      style: b14.copyWith(color: brownGoldColor),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      width: 4.3,
+                      width: 4.3.w,
                     ),
                     SvgPicture.asset(
                       'assets/icons/doubleArrows.svg',
@@ -238,7 +220,7 @@ class StorePage extends StatelessWidget {
   }
   SizedBox rowItem(List<String> listName,List<String> listPrice,List<String> listIamge) {
     return SizedBox(
-            height: 230,
+            height: 230.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: categoriesImage.length,
@@ -250,29 +232,24 @@ class StorePage extends StatelessWidget {
                       child: Image(
                         image: AssetImage(
                             'assets/image/${listIamge[index]}'),
-                        width: 150,
+
+                        height: 150.h,
                       ),
                     ),
                     SizedBox(
-                      height: 10.5,
+                      height: 10.5.h,
                     ),
                     Text(
                       listName[index],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'avenirB'),
+                      style: b14.copyWith(color: Colors.black),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 5.h,
                     ),
                     Text(
                       listPrice[index],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                          fontFamily: 'avenirM'),
+                      style: h20,
                       textAlign: TextAlign.center,
                     ),
                   ],
