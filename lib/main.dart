@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/intro_screen/page1.dart';
@@ -19,10 +20,13 @@ import 'package:flutter_ecommerce/more_detail.dart';
 import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/order_success.dart';
+import 'package:flutter_ecommerce/payment_detail.dart';
 import 'package:flutter_ecommerce/reset_password_screen/reset_password_page.dart';
 import 'package:flutter_ecommerce/select_country.dart';
 
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
+import 'package:flutter_ecommerce/shipping_info.dart';
+import 'package:flutter_ecommerce/test_dynamic.dart';
 
 import 'package:flutter_ecommerce/test_map/map_test.dart';
 import 'package:flutter_ecommerce/verification.dart/verification_page.dart';
@@ -40,11 +44,37 @@ import 'seach_and_hastag/hastag.dart';
 import 'seach_and_hastag/search_page.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  runApp(ProviderScope(child: MyApp()));
+  // SystemChrome.setSystemUIOverlayStyle(
+  //     SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+   WidgetsFlutterBinding.ensureInitialized();
+  runApp(ProviderScope(child: App()));
 }
+class App extends StatelessWidget {
+  // Create the initialization Future outside of `build`:
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return SizedBox();
+        }
+
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MyApp();
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Container(color: Colors.black,);
+      },
+    );
+  }
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,12 +109,13 @@ class MyApp extends StatelessWidget {
             '/intro': (context) => IntroPage(),
             '/verified': (context) => VerifiedPage(),
             '/detail': (context) => ProductDetail(),
+         
             '/verification': (context) => VerificationPage(),
             '/register': (context) => RegisterPage(),
             '/forgot': (context) => ResetPassword(),
             '/login': (context) => LoginPage(),
             '/sendemail': (context) => SendEmail(),
-       
+             '/shipping': (context) => ShippingInfo(),
             '/settingmain': (context) => SettingMain(),
             '/orderhistory': (context) => OrderHistory(),
             '/ordersuccess': (context) => OrderSuccess(),
@@ -96,8 +127,11 @@ class MyApp extends StatelessWidget {
             '/setting': (context) => Setting(),
             '/orderstatus': (context) => OrderStatus(),
             '/orderdetail': (context) => OrderDetail(),
+            '/payment': (context) => PaymentDetail(),
             '/map': (context) => MapFull(),
             '/mylocation': (context) => MyLocation(),
+            '/test': (context) => TestDynamic(),
+       
             '/testload': (context) => LoadingPage(
                   nextPage: "null",
                 )

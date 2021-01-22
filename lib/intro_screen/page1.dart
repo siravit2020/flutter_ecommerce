@@ -52,13 +52,7 @@ class Page1 extends StatelessWidget {
           message: "MAIN PAGE",
           color: goldColor,
           fuction: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoadingPage(
-                        nextPage: '/',
-                      )),
-            );
+            Navigator.pushNamedAndRemoveUntil(context, '/main',(Route<dynamic> route) => false);
           },
         ),
         SizedBox(

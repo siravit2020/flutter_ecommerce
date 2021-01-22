@@ -12,7 +12,17 @@ import '../../constants.dart';
 import '../riverpod_main.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+final collecItemChange = ChangeNotifierProvider<CollecItem>((ref) {
+  return CollecItem();
+});
 
+class CollecItem extends ChangeNotifier {
+  List<Collections> list = collection;
+  void remove(int index) {
+    list.removeAt(index);
+    notifyListeners();
+  }
+}
 
 class FavoritesPage extends ConsumerWidget {
   @override
@@ -22,6 +32,7 @@ class FavoritesPage extends ConsumerWidget {
         kToolbarHeight -
         MediaQuery.of(context).padding.top;
     final action = watch(actionAbbbarFav);
+    final collecItem = watch(collecItemChange);
     return Container(
       width: double.infinity,
       constraints: new BoxConstraints(
@@ -50,13 +61,12 @@ class FavoritesPage extends ConsumerWidget {
             GridView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: collection.length,
+              itemCount: collecItem.list.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 211.w / 250.h,
               ),
               itemBuilder: (BuildContext context, int index) {
-               
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -64,18 +74,24 @@ class FavoritesPage extends ConsumerWidget {
                       children: [
                         Image(
                           image: AssetImage(
-                              'assets/image/${collection[index].image}'),
+                              'assets/image/${collecItem.list[index].image}'),
                           width: 150.h,
                         ),
                         Positioned(
                           right: 0,
                           bottom: 0,
-                          child: SvgPicture.asset(
-                            (action.state) ? 
-                            'assets/icons/trashRed.svg'
-                            : 'assets/icons/Icons-icon-added-to-fav.svg',
-                            width: 28,
-                            height: 28,
+                          child: GestureDetector(
+                            onTap: () {
+                              if(action.state)
+                              collecItem.remove(index);
+                            },
+                            child: SvgPicture.asset(
+                              (action.state)
+                                  ? 'assets/icons/trashRed.svg'
+                                  : 'assets/icons/Icons-icon-added-to-fav.svg',
+                              width: 28,
+                              height: 28,
+                            ),
                           ),
                         )
                       ],
@@ -84,7 +100,7 @@ class FavoritesPage extends ConsumerWidget {
                       height: 10.5.h,
                     ),
                     Text(
-                      collection[index].name,
+                      collecItem.list[index].name,
                       style: b14.copyWith(color: Colors.black),
                       textAlign: TextAlign.center,
                     ),
@@ -92,7 +108,7 @@ class FavoritesPage extends ConsumerWidget {
                       height: 5,
                     ),
                     Text(
-                      collection[index].price,
+                      collecItem.list[index].price,
                       style: m24,
                       textAlign: TextAlign.center,
                     ),

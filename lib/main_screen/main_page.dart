@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_screen/login_page.dart';
+import 'package:flutter_ecommerce/order_detail.dart';
 
 import 'package:flutter_ecommerce/seach_and_hastag/hastag.dart';
 import 'package:flutter_ecommerce/text_style.dart';
@@ -36,10 +37,7 @@ class MainPageState extends ConsumerWidget {
   static List<Widget> _widgetOptions = <Widget>[
     StorePage(),
     CategoriesPage(),
-    Container(
-      color: Colors.white,
-      height: 800,
-    ),
+    OrderDetail(),
     FavoritesPage(),
     SettingMain()
   ];
@@ -61,39 +59,33 @@ class MainPageState extends ConsumerWidget {
             floating: false,
             pinned: true,
             snap: false,
-            expandedHeight:
-                (selectedIndex.state == 3 || selectedIndex.state == 2)
-                    ? 140.h
-                    : 0,
-            flexibleSpace:
-                (selectedIndex.state == 3 || selectedIndex.state == 2)
-                    ? FlexibleSpaceBar(
-                        background: Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 20.h,
-                                left: 1.sw * 0.08,
-                                right: 1.sw * 0.08),
-                            child: case2(
-                                selectedIndex.state,
-                                {
-                                  2: Text(
-                                      "Fill in the form below so we can know exactly \n where to ship your order.",
-                                      textAlign: TextAlign.center,
-                                      style: b14),
-                                  3: Text(
-                                      (action.state)
-                                          ? "To remove an item, simply tap on the icon on the bottom right corner of the product."
-                                          : "Seems like you don’t have any items \n in your favorite list.",
-                                      textAlign: TextAlign.center,
-                                      style: b14),
-                                },
-                                Text("Default")),
-                          ),
-                        ),
-                      )
-                    : SizedBox(),
+            expandedHeight: (selectedIndex.state == 3) ? 140.h : 0,
+            flexibleSpace: (selectedIndex.state == 3)
+                ? FlexibleSpaceBar(
+                    background: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.h, left: 1.sw * 0.08, right: 1.sw * 0.08),
+                        child: case2(
+                            selectedIndex.state,
+                            {
+                              // 2: Text(
+                              //     "Fill in the form below so we can know exactly \n where to ship your order.",
+                              //     textAlign: TextAlign.center,
+                              //     style: b14),
+                              3: Text(
+                                  (action.state)
+                                      ? "To remove an item, simply tap on the icon on the bottom right corner of the product."
+                                      : "Seems like you don’t have any items \n in your favorite list.",
+                                  textAlign: TextAlign.center,
+                                  style: b14),
+                            },
+                            Text("Default")),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             leading: IconButton(
               splashRadius: 20,
               onPressed: () {},
@@ -121,7 +113,7 @@ class MainPageState extends ConsumerWidget {
                           color: Colors.white,
                         ),
                       ),
-                      2: newMethod(action,context),
+                      2: newMethod(action, context),
                     },
                     Row(
                       children: [
@@ -233,7 +225,7 @@ class MainPageState extends ConsumerWidget {
     ));
   }
 
-  Container newMethod(StateController<bool> action,BuildContext context) {
+  Container newMethod(StateController<bool> action, BuildContext context) {
     return Container(
       child: Center(
         child: Stack(
@@ -242,7 +234,7 @@ class MainPageState extends ConsumerWidget {
               splashRadius: 20,
               color: Colors.white,
               onPressed: () {
-                 Navigator.pushNamed(context, '/orderdetail');
+                Navigator.pushNamed(context, '/orderdetail');
               },
               icon: SvgPicture.asset(
                 'assets/icons/shopingOut.svg',

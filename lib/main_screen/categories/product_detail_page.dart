@@ -10,8 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/more_detail2.dart';
+import 'package:flutter_ecommerce/more_detail3.dart';
+import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetail extends ConsumerWidget {
   const ProductDetail({Key key}) : super(key: key);
@@ -37,12 +41,7 @@ class ProductDetail extends ConsumerWidget {
         backgroundColor: Colors.white,
         title: Text(
           "PRODUCT DETAILS",
-          style: TextStyle(
-            fontSize: 13,
-            fontFamily: 'avenirB',
-            color: Colors.black,
-            letterSpacing: 1.5,
-          ),
+          style: b13,
         ),
       ),
       body: SingleChildScrollView(
@@ -54,7 +53,7 @@ class ProductDetail extends ConsumerWidget {
             children: [
               Image(
                 image: AssetImage('assets/image/Gulcehre_ibrik.png'),
-                width: w5 * 4,
+                height: height * 0.4,
               ),
               Container(
                 width: double.infinity,
@@ -72,68 +71,70 @@ class ProductDetail extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(
-                      height: 44,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 44.h,
+                          ),
+                          Text(
+                            "Hagia Sophia Deesis Mosaic Vase",
+                            style: h30,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              StarRow(),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+                              Text(
+                                "1.248 Reviews",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'avenirB',
+                                    fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 27.h,
+                          ),
+                          Text(
+                            "The Virgin Mary in the “Deesis” scene in the south\ngallery of Hagia Sophia is depicted on the Hagia\nSophia Mosaic Vase.",
+                            textAlign: TextAlign.center,
+                            style: b12,
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Text(
+                            "€3450",
+                            style: h30.copyWith(color: brownGoldColor),
+                          ),
+                          SizedBox(
+                            height: 26.h,
+                          ),
+                        ],
+                      ),
                     ),
+                    MoreDetails2(),
                     Text(
-                      "Hagia Sophia \n Deesis Mosaic Vase",
+                      "Similar products",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 30,
-                          fontFamily: 'avenirH'),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        StarRow(),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          "1.248 Reviews",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'avenirB',
-                              fontSize: 12),
-                        ),
-                      ],
+                          fontFamily: 'avenirH',
+                          fontSize: 24),
                     ),
                     SizedBox(
                       height: 27,
                     ),
-                    Text(
-                      "The Virgin Mary in the “Deesis” scene in the south\ngallery of Hagia Sophia is depicted on the Hagia\nSophia Mosaic Vase.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: textGrey, fontFamily: 'avenirB', fontSize: 12),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      "€3450",
-                      style: TextStyle(
-                          color: brownGoldColor,
-                          fontFamily: 'avenirH',
-                          fontSize: 30),
-                    ),
-                    SizedBox(
-                      height: 26,
-                    ),
-                    MoreDetails(),
-                    // Text(
-                    //   "Similar products",
-                    //   style: TextStyle(
-                    //       color: Colors.black,
-                    //       fontFamily: 'avenirH',
-                    //       fontSize: 24),
-                    // ),
-                    // SizedBox(height: 27,),
-                    // rowItem(featuredName2,featuredPrice2,featuredImage2),
+                    rowItem(featuredName2, featuredPrice2, featuredImage2),
                   ],
                 ),
               ),
@@ -144,71 +145,66 @@ class ProductDetail extends ConsumerWidget {
     );
   }
 }
+
 SizedBox rowItem(
-      List<String> listName, List<String> listPrice, List<String> listIamge) {
-    return SizedBox(
-      height: 230,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: listName.length,
-        itemBuilder: (context, index) {
-          var ran = Random().nextInt(2);
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: Stack(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/image/${listIamge[index]}'),
-                      width: 150,
-                    ),
-                    if (ran == 0)
-                      Positioned(
-                        right: 0,
-                        top: 10,
-                        child: Container(
-                          decoration: new BoxDecoration(
-                              color: brownGoldColor,
-                              borderRadius: new BorderRadius.only(
-                                bottomLeft: const Radius.circular(4),
-                                topRight: const Radius.circular(4),
-                              )),
-                          padding: EdgeInsets.all(4),
-                          child: Text(
-                            "-${Random().nextInt(50) + 20}%",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: 'avenirB'),
-                          ),
+    List<String> listName, List<String> listPrice, List<String> listIamge) {
+  return SizedBox(
+    height: 230.h,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: listName.length,
+      itemBuilder: (context, index) {
+        var ran = Random().nextInt(2);
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Stack(
+                children: [
+                  Image(
+                    image: AssetImage('assets/image/${listIamge[index]}'),
+                    height: 150.h,
+                  ),
+                  if (ran == 0)
+                    Positioned(
+                      right: 0,
+                      top: 10.h,
+                      child: Container(
+                        decoration: new BoxDecoration(
+                            color: brownGoldColor,
+                            borderRadius: new BorderRadius.only(
+                              bottomLeft: const Radius.circular(4),
+                              topRight: const Radius.circular(4),
+                            )),
+                        padding: EdgeInsets.all(4),
+                        child: Text(
+                          "-${Random().nextInt(50) + 20}%",
+                          style: b12.copyWith(color: Colors.white),
                         ),
                       ),
-          
-                  ],
-                ),
+                    ),
+                ],
               ),
-              SizedBox(
-                height: 10.5,
-              ),
-              Text(
-                listName[index],
-                style: TextStyle(
-                    color: Colors.black, fontSize: 14, fontFamily: 'avenirB'),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                listPrice[index],
-                style: TextStyle(
-                    color: Colors.black, fontSize: 24, fontFamily: 'avenirM'),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
+            ),
+            SizedBox(
+              height: 10.5.h,
+            ),
+            Text(
+              listName[index],
+              style: b14.copyWith(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              listPrice[index],
+              style: m24,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        );
+      },
+    ),
+  );
+}

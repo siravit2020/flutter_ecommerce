@@ -32,66 +32,11 @@ class ControllerChange extends ChangeNotifier {
   TextEditingController cardNumberController2 = TextEditingController();
 }
 
-final List<String> imgList = [
-  'MasterCard.png',
-  'MasterCard2.png',
-];
-final List<Widget> imageSliders = cardDetail
-    .map((item) => Center(
-          child: Container(
-            width: 315.w,
-            height: 190.h,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color(0xff43444F),
-                    Color(0xff61626C),
-                  ]),
-            ),
-            child: LayoutBuilder(builder: (context, constraints) {
-              return Padding(
-                padding: EdgeInsets.only(
-                    top: constraints.constrainHeight() * 0.15,
-                    bottom: constraints.constrainHeight() * 0.12,
-                    right: constraints.constrainWidth() * 0.1,
-                    left: constraints.constrainWidth() * 0.1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset('assets/icons/card_icon2.svg'),
-                        Text("${item.month} / ${item.year}",style: b12.copyWith(color: Colors.white),)
-                      ],
-                    ),
-                    SizedBox(height: 24.h,),
-                    Text(item.cardNumber,style: h24.copyWith(color: Colors.white),),
-                    SizedBox(height: 15.h,),
-                    Text("Card Holder",style: b12.copyWith(color: Colors.white.withOpacity(0.5)),),
-                    SizedBox(height: 8.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(item.cardHolderName,style: h20.copyWith(color: Colors.white),),
-                        SvgPicture.asset('assets/icons/card_icon.svg'),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ))
-    .toList();
+
 final controller = CarouselController;
 
-class MyCard extends ConsumerWidget {
-  const MyCard({Key key}) : super(key: key);
+class PaymentDetail extends ConsumerWidget {
+  const PaymentDetail({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -100,12 +45,7 @@ class MyCard extends ConsumerWidget {
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     final _index = watch(indexState);
     final controller = watch(controllerChange);
-    controller.cardNumberController.text = cardDetail[_index.state].cardNumber;
-    controller.cardHolderlController.text =
-        cardDetail[_index.state].cardHolderName;
-    controller.pmonthController.text = cardDetail[_index.state].month;
-    controller.yearController.text = cardDetail[_index.state].year;
-    controller.cardNumberController2.text = cardDetail[_index.state].cardHolder;
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -123,7 +63,7 @@ class MyCard extends ConsumerWidget {
           ),
           backgroundColor: Colors.black,
           title: Text(
-            "MY CARDa",
+            "PATMENT DETAIL",
             style: TextStyle(
               fontSize: 13.sp,
               fontFamily: 'avenirB',
@@ -131,22 +71,7 @@ class MyCard extends ConsumerWidget {
               letterSpacing: 1.5,
             ),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 4.w),
-              child: IconButton(
-                splashRadius: 20,
-                color: Colors.white,
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  'assets/icons/trashOut.svg',
-                  width: 18,
-                  height: 18,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+          
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -155,30 +80,80 @@ class MyCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                      enableInfiniteScroll: false,
-                      initialPage: 0,
-                      enlargeCenterPage: true,
-                      onPageChanged: (index, reason) {
-                        _index.state = index;
-                      }),
-                  items: imageSliders,
-                ),
-                AnimatedSmoothIndicator(
-                  activeIndex: _index.state,
-                  count: 2,
-                  effect: ScaleEffect(
-                    dotHeight: 4,
-                    dotWidth: 4,
-                    spacing: 10,
-                    dotColor: Color(0xff707070),
-                    activeDotColor: brownGoldColor,
-                    activePaintStyle: PaintingStyle.fill,
+                SizedBox(height: 20.h,),
+                Container(
+                  width: 315.w,
+                  height: 190.h,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Color(0xff43444F),
+                          Color(0xff61626C),
+                        ]),
                   ),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          top: constraints.constrainHeight() * 0.15,
+                          bottom: constraints.constrainHeight() * 0.12,
+                          right: constraints.constrainWidth() * 0.1,
+                          left: constraints.constrainWidth() * 0.1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset('assets/icons/card_icon2.svg'),
+                              (controller.pmonthController.text != "" && controller.yearController.text!= "")?
+                              Text(
+                                
+                                "${controller.pmonthController.text} / ${controller.yearController.text}",
+                                style: b12.copyWith(color: Colors.white),
+                              ):Text("- - / - - - -",style: b12)
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          Text(
+                            (controller.cardNumberController.text != "")?
+                            controller.cardNumberController.text : "- - - -  - - - -  - - - -  - - - -",
+                            style: h24.copyWith(color: Colors.white),
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          Text(
+                            "Card Holder",
+                            style: b12.copyWith(
+                                color: Colors.white.withOpacity(0.5)),
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                (controller.cardHolderlController.text != "")?
+                                controller.cardHolderlController.text:"Your name here",
+                                style: h20.copyWith(color: Colors.white),
+                              ),
+                              SvgPicture.asset('assets/icons/card_icon.svg'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 40.h,
                 ),
                 Container(
                   width: double.infinity,
@@ -335,7 +310,7 @@ class MyCard extends ConsumerWidget {
                               borderSide: BorderSide(color: Color(0xFFCC9D76)),
                             ),
                             contentPadding: EdgeInsets.only(left: 10.w),
-                            labelText: 'Cardholder Name',
+                            labelText: 'CCV',
                             labelStyle: b16,
                           ),
                         ),

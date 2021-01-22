@@ -1,14 +1,18 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../color_plate.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 final visiblePassword = ChangeNotifierProvider<VisiblePassword>((ref) {
   return VisiblePassword();
@@ -17,6 +21,15 @@ final visiblePassword = ChangeNotifierProvider<VisiblePassword>((ref) {
 final controllerChange = ChangeNotifierProvider<ControllerChange>((ref) {
   return ControllerChange();
 });
+final testControllerChange =
+    ChangeNotifierProvider<TestControllerChange>((ref) {
+  return TestControllerChange();
+});
+final passwordColorState = StateProvider<bool>((ref) {
+  return false;
+});
+var maskFormatter = new MaskTextInputFormatter(
+    mask: '+## ### ### ####', filter: {"#": RegExp(r'[0-9]')});
 
 class VisiblePassword extends ChangeNotifier {
   bool password = true;
@@ -31,7 +44,13 @@ class ControllerChange extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  
+}
+
+class TestControllerChange extends ChangeNotifier {
+  String username;
+  String email;
+  String pass;
+  String phone;
 }
 
 class RegisterPage extends ConsumerWidget {
@@ -39,8 +58,12 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
     final visible = watch(visiblePassword);
     final controller = watch(controllerChange);
+    final textField = watch(testControllerChange);
+    final passwordColor = watch(passwordColorState);
     final w = 1.sw;
     final w5 = w / 5;
     final height = 1.sh - kToolbarHeight;
@@ -91,16 +114,48 @@ class RegisterPage extends ConsumerWidget {
                   SizedBox(
                     height: 29.5.h,
                   ),
-                  TextFieldBrown(
-                    label: "Username",
-                    controller: controller.usernameController,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                    child: TextField(
+                      onChanged: (String text) {
+                        textField.username = text;
+                      },
+                      style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
+                      cursorColor: Color(0xffAA7E6F),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffE5E5E5)),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCC9D76)),
+                        ),
+                        contentPadding: EdgeInsets.only(left: 10.w),
+                        labelText: "Username",
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 25.h,
                   ),
-                  TextFieldBrown(
-                    label: "Email",
-                    controller: controller.emailController,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                    child: TextField(
+                      onChanged: (String text) {
+                        textField.email = text;
+                      },
+                      style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
+                      cursorColor: Color(0xffAA7E6F),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffE5E5E5)),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCC9D76)),
+                        ),
+                        contentPadding: EdgeInsets.only(left: 10.w),
+                        labelText: "Email",
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 25.h,
@@ -111,21 +166,42 @@ class RegisterPage extends ConsumerWidget {
                       alignment: const Alignment(1.0, 1.0),
                       children: [
                         TextField(
-                          style: b16,
-                          cursorColor: Color(0xffAA7E6F),
-                          obscureText: visible.password,
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffE5E5E5)),
+                            style: (passwordColor.state)
+                                ? TextStyle(
+                                    color: Colors.red,
+                                    fontFamily: 'avenirB',
+                                    fontSize: 16.sp,
+                                  )
+                                : TextStyle(
+                                    fontFamily: 'avenirB',
+                                    fontSize: 16.sp,
+                                  ),
+                            cursorColor: Color(0xffAA7E6F),
+                            obscureText: visible.password,
+                            decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xffE5E5E5)),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: (passwordColor.state)
+                                      ? Colors.red
+                                      : brownGoldColor,
+                                ),
+                              ),
+                              contentPadding:
+                                  EdgeInsets.only(left: 10.w, right: 50.w),
+                              labelText: 'Password',
                             ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                            ),
-                            contentPadding:
-                                EdgeInsets.only(left: 10.w, right: 50.w),
-                            labelText: 'Password',
-                          ),
-                        ),
+                            onChanged: (String text) {
+                              if (text.length > 20)
+                                passwordColor.state = true;
+                              else
+                                passwordColor.state = false;
+
+                              textField.pass = text;
+                            }),
                         Container(
                           padding: const EdgeInsets.all(0.0),
                           child: IconButton(
@@ -150,7 +226,12 @@ class RegisterPage extends ConsumerWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: TextFormField(
+                      onChanged: (String text) {
+                        textField.phone = text;
+                        print(text);
+                      },
                       style: b16,
+                      inputFormatters: [maskFormatter],
                       keyboardType: TextInputType.number,
                       cursorColor: Color(0xffAA7E6F),
                       decoration: InputDecoration(
@@ -170,9 +251,62 @@ class RegisterPage extends ConsumerWidget {
                   ),
                   ButtonFill(
                     message: "SIGN UP",
-                    color: brownGoldColor,
-                    fuction: () {
-                      Navigator.pushNamed(context, '/loading');
+                    color: (passwordColor.state)
+                        ? brownGoldColor.withOpacity(0.5)
+                        : brownGoldColor,
+                    fuction: () async {
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        transitionDuration: Duration(milliseconds: 400),
+                        pageBuilder: (_, __, ___) {
+                          // your widget implementation
+                          return LoadingPage(
+                            nextPage: "null",
+                          );
+                        },
+                      );
+
+                      if (!passwordColor.state)
+                        //Navigator.pushNamed(context, '/loading');
+                        try {
+                          print(controller.emailController.text);
+
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
+                                  email: textField.email,
+                                  password: textField.pass);
+
+                          CollectionReference users =
+                              FirebaseFirestore.instance.collection('Users');
+
+                          Future<void> addUser() {
+                            return users
+                                .doc(userCredential.user.uid)
+                                .set({
+                                  'Username': textField.username,
+                                  'Phone': textField.phone
+                                })
+                                .then((value) => Navigator.pop(context))
+                                .catchError((error) =>
+                                    print("Failed to add user: $error"));
+                          }
+
+                          userCredential.user.updateProfile(
+                            displayName: textField.username,
+                          );
+                          addUser();
+                        } on FirebaseAuthException catch (e) {
+                          Navigator.pop(context);
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
+                            print('The account already exists for that email.');
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                     },
                     width: w5 * 3,
                   ),

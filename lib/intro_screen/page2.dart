@@ -48,7 +48,9 @@ class Page2 extends StatelessWidget {
           width: w * 3,
           color: goldColor,
           message: "MAIN PAGE",
-          fuction: () {},
+          fuction: () {
+            Navigator.pushNamed(context, '/main');
+          },
         ),
         SizedBox(
           height: 16.5.h,
