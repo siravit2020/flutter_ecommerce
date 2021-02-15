@@ -398,212 +398,204 @@ class OrderDetail extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final w = MediaQuery.of(context).size.width;
     final w5 = MediaQuery.of(context).size.width / 5;
-    final height = MediaQuery.of(context).size.height - kToolbarHeight;
     final shipping = watch(shippingState);
     final payment = watch(paymentState);
     final radio = watch(_radioState);
-    return Container(
-      width: double.infinity,
-      constraints: new BoxConstraints(
-        minHeight: height,
-      ),
-      decoration: whiteCorner,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    height: 41.h,
-                  ),
-                  detailsOrder(
-                      "SHIPPING TO",
-                      "Dereboyu Cad. 23, \n34410 - Istanbul/Türkiye",
-                      shipping,
-                      true,
-                      context),
-                  Divider(
-                    thickness: 1,
-                    height: 62.h,
-                  ),
-                  detailsOrder(
-                      "PAY WITH CREDIT CARD",
-                      "XXXX - XXXX - XXXX - 9123",
-                      payment,
-                      false,
-                      context),
-                  Divider(
-                    thickness: 1,
-                    height: 62.h,
-                  ),
-                  Text(
-                    "ORDER DETAILS",
-                    style: b14,
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  for (var item in collection2)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/image/${item.image}'),
-                          height: 90.h,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.name,
-                              style: b14.copyWith(color: Colors.black),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              item.price,
-                              style: h20,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  Divider(
-                    thickness: 1,
-                    height: 62.h,
-                  ),
-                  Text(
-                    "SHIPPING METHOD",
-                    style: b14,
-                  ),
-                  SizedBox(
-                    height: 22,
-                  ),
-                  rowRadio(radio, 0, method[0].method, method[0].price,
-                      brownGoldColor),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  rowRadio(radio, 1, method[1].method, method[1].price,
-                      Colors.black),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  rowRadio(radio, 2, method[2].method, method[2].price,
-                      Colors.black),
-                  SizedBox(
-                    height: 41.h,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20.0),
-                  topRight: const Radius.circular(20.0),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  height: 41.h,
                 ),
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                  child: Column(
+                detailsOrder(
+                    "SHIPPING TO",
+                    "Dereboyu Cad. 23, \n34410 - Istanbul/Türkiye",
+                    shipping,
+                    true,
+                    context),
+                Divider(
+                  thickness: 1,
+                  height: 62.h,
+                ),
+                detailsOrder(
+                    "PAY WITH CREDIT CARD",
+                    "XXXX - XXXX - XXXX - 9123",
+                    payment,
+                    false,
+                    context),
+                Divider(
+                  thickness: 1,
+                  height: 62.h,
+                ),
+                Text(
+                  "ORDER DETAILS",
+                  style: b14,
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                for (var item in collection2)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 31.h,
+                      Image(
+                        image: AssetImage('assets/image/${item.image}'),
+                        height: 90.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "SUBTOTAL",
-                            style: b14.copyWith(color: Colors.white),
+                            item.name,
+                            style: b14.copyWith(color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: 8,
                           ),
                           Text(
-                            "€13.650",
-                            style: b14.copyWith(color: Colors.white),
+                            item.price,
+                            style: h20,
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "SHIPPING",
-                            style: b14.copyWith(color: Colors.white),
-                          ),
-                          Text(
-                            (!radio.radio[0] &&
-                                    !radio.radio[1] &&
-                                    !radio.radio[2])
-                                ? "Please select"
-                                : method[radio.index].price,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontFamily: 'avenirBl',
-                              color: (!radio.radio[0] &&
-                                      !radio.radio[1] &&
-                                      !radio.radio[2])
-                                  ? Colors.white.withOpacity(0.5)
-                                  : Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 35.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Total to Pay",
-                            style: h20.copyWith(color: Colors.white),
-                          ),
-                          Text(
-                            "€13.650",
-                            style: h20.copyWith(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 22.h,
-                      ),
-                      ButtonFill(
-                        color: brownGoldColor,
-                        fuction: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoadingPage(
-                                nextPage: '/ordersuccess',
-                              ),
-                            ),
-                          );
-                        },
-                        message: "PLACE ORDER",
-                        width: w5 * 3,
-                      ),
-                      SizedBox(
-                        height: 16.5.h,
-                      ),
+                      )
                     ],
                   ),
+                Divider(
+                  thickness: 1,
+                  height: 62.h,
+                ),
+                Text(
+                  "SHIPPING METHOD",
+                  style: b14,
+                ),
+                SizedBox(
+                  height: 22,
+                ),
+                rowRadio(radio, 0, method[0].method, method[0].price,
+                    brownGoldColor),
+                SizedBox(
+                  height: 16.h,
+                ),
+                rowRadio(radio, 1, method[1].method, method[1].price,
+                    Colors.black),
+                SizedBox(
+                  height: 16.h,
+                ),
+                rowRadio(radio, 2, method[2].method, method[2].price,
+                    Colors.black),
+                SizedBox(
+                  height: 41.h,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(20.0),
+                topRight: const Radius.circular(20.0),
+              ),
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 31.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "SUBTOTAL",
+                          style: b14.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          "€13.650",
+                          style: b14.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "SHIPPING",
+                          style: b14.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          (!radio.radio[0] &&
+                                  !radio.radio[1] &&
+                                  !radio.radio[2])
+                              ? "Please select"
+                              : method[radio.index].price,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontFamily: 'avenirBl',
+                            color: (!radio.radio[0] &&
+                                    !radio.radio[1] &&
+                                    !radio.radio[2])
+                                ? Colors.white.withOpacity(0.5)
+                                : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total to Pay",
+                          style: h20.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          "€13.650",
+                          style: h20.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 22.h,
+                    ),
+                    ButtonFill(
+                      color: brownGoldColor,
+                      fuction: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoadingPage(
+                              nextPage: '/ordersuccess',
+                            ),
+                          ),
+                        );
+                      },
+                      message: "PLACE ORDER",
+                      width: w5 * 3,
+                    ),
+                    SizedBox(
+                      height: 16.5.h,
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

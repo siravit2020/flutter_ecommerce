@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/intro_screen/page1.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
-import 'package:flutter_ecommerce/login_screen/login_page.dart';
+import 'package:flutter_ecommerce/login_and_register/login_screen/screen.dart';
+import 'package:flutter_ecommerce/login_and_register/register_screen/register_page.dart';
+
 import 'package:flutter_ecommerce/main_screen/main_page.dart';
 import 'package:flutter_ecommerce/main_screen/setting/google_map.dart';
 import 'package:flutter_ecommerce/main_screen/setting/latest_articles.dart';
@@ -21,11 +23,12 @@ import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/order_success.dart';
 import 'package:flutter_ecommerce/payment_detail.dart';
-import 'package:flutter_ecommerce/reset_password_screen/reset_password_page.dart';
+
 import 'package:flutter_ecommerce/select_country.dart';
 
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
 import 'package:flutter_ecommerce/shipping_info.dart';
+import 'package:flutter_ecommerce/test6.dart';
 import 'package:flutter_ecommerce/test_dynamic.dart';
 
 import 'package:flutter_ecommerce/test_map/map_test.dart';
@@ -38,14 +41,14 @@ import 'intro_screen/page2.dart';
 import 'intro_screen/page3.dart';
 
 import 'main_screen/categories/product_detail_page.dart';
-import 'register_screen/register_page.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'seach_and_hastag/hastag.dart';
 import 'seach_and_hastag/search_page.dart';
-
+import 'package:bot_toast/bot_toast.dart';
 void main() {
-  // SystemChrome.setSystemUIOverlayStyle(
-  //     SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
    WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(child: App()));
 }
@@ -84,7 +87,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-
+          builder: BotToastInit(), 
+          navigatorObservers: [BotToastNavigatorObserver()],
           theme: ThemeData(
             primarySwatch: Colors.grey,
             visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -101,7 +105,7 @@ class MyApp extends StatelessWidget {
               //'/test'
               //'/intro'
               //'/map'
-              '/main',
+              '/intro',
           routes: {
             '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
@@ -109,11 +113,11 @@ class MyApp extends StatelessWidget {
             '/intro': (context) => IntroPage(),
             '/verified': (context) => VerifiedPage(),
             '/detail': (context) => ProductDetail(),
-         
+            '/test2': (context) => LoginScreen(),
             '/verification': (context) => VerificationPage(),
             '/register': (context) => RegisterPage(),
-            '/forgot': (context) => ResetPassword(),
-            '/login': (context) => LoginPage(),
+            
+             '/login': (context) => LoginScreen(),
             '/sendemail': (context) => SendEmail(),
              '/shipping': (context) => ShippingInfo(),
             '/settingmain': (context) => SettingMain(),

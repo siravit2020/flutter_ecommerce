@@ -9,19 +9,7 @@ class SettingMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
-    final height = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: new BoxConstraints(
-        minHeight: height - pTop - pBottom,
-      ),
-      decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: new BorderRadius.only(
-          topLeft: const Radius.circular(20.0),
-          topRight: const Radius.circular(20.0),
-        ),
-      ),
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,

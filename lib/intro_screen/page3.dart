@@ -51,7 +51,7 @@ class Page3 extends StatelessWidget {
         ),
         FlatButton(
           minWidth: w * 3,
-          padding: EdgeInsets.fromLTRB(45, 12, 45, 12),
+          padding: EdgeInsets.fromLTRB(4.w, 12.h, 4.w, 12.h),
           onPressed: () {
              Navigator.pushNamed(context, '/login');
           },

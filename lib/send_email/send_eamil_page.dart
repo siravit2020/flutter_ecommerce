@@ -20,6 +20,7 @@ class SendEmail extends ConsumerWidget {
     final height = 1.sh - kToolbarHeight;
 
     return Scaffold(
+      
         body: Container(
       width: double.infinity,
       constraints: new BoxConstraints(

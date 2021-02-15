@@ -25,15 +25,8 @@ class CategoriesPage extends ConsumerWidget {
         MediaQuery.of(context).padding.top;
     final changePage = watch(changePageState);
 
-    return Container(
-      width: double.infinity,
-      constraints: new BoxConstraints(
-        minHeight: height,
-      ),
-      decoration: whiteCorner,
-      child: SingleChildScrollView(
-        child: _widgetList[changePage.state],
-      ),
+    return SingleChildScrollView(
+      child: _widgetList[changePage.state],
     );
   }
 }

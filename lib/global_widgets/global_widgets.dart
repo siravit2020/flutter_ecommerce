@@ -21,7 +21,7 @@ class ButtonFill extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       minWidth: width,
-      padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
+      padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 12.h),
       onPressed: fuction,
       color: color,
       textColor: Colors.white,
@@ -150,3 +150,40 @@ class StandardAppbar extends StatelessWidget with PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
+class TextBottom extends StatelessWidget {
+  final String text;
+  final String text2;
+  final String target;
+
+  const TextBottom({Key key, this.text, this.text2, this.target}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          text,
+          style: b14,
+        ),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () {
+              Navigator.popAndPushNamed(context, target);
+            },
+            child: Text(
+              text2,
+              style: b14.copyWith(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+

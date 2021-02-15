@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
-import 'package:flutter_ecommerce/login_screen/login_page.dart';
+
 import 'package:flutter_ecommerce/order_detail.dart';
 
 import 'package:flutter_ecommerce/seach_and_hastag/hastag.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../constants.dart';
 import 'categories/categories_page.dart';
@@ -34,16 +37,9 @@ final selectedIndexState = StateProvider<int>((ref) {
 });
 
 class MainPageState extends ConsumerWidget {
-  static List<Widget> _widgetOptions = <Widget>[
-    StorePage(),
-    CategoriesPage(),
-    OrderDetail(),
-    FavoritesPage(),
-    SettingMain()
-  ];
-
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final controller = PageController(initialPage: 0);
     final selectedIndex = watch(selectedIndexState);
     final action = watch(actionAbbbarFav);
     final titleAppbar = watch(titleAppbarState);
@@ -52,105 +48,133 @@ class MainPageState extends ConsumerWidget {
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.black,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            floating: false,
-            pinned: true,
-            snap: false,
-            expandedHeight: (selectedIndex.state == 3) ? 140.h : 0,
-            flexibleSpace: (selectedIndex.state == 3)
-                ? FlexibleSpaceBar(
-                    background: Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.h, left: 1.sw * 0.08, right: 1.sw * 0.08),
-                        child: case2(
-                            selectedIndex.state,
-                            {
-                              // 2: Text(
-                              //     "Fill in the form below so we can know exactly \n where to ship your order.",
-                              //     textAlign: TextAlign.center,
-                              //     style: b14),
-                              3: Text(
-                                  (action.state)
-                                      ? "To remove an item, simply tap on the icon on the bottom right corner of the product."
-                                      : "Seems like you don’t have any items \n in your favorite list.",
-                                  textAlign: TextAlign.center,
-                                  style: b14),
-                            },
-                            Text("Default")),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          // These are the slivers that show up in the "outer" scroll view.
+          return [
+            SliverAppBar(
+              centerTitle: true,
+              floating: false,
+              pinned: true,
+              snap: false,
+              expandedHeight: (selectedIndex.state == 3) ? 140.h : 0,
+              flexibleSpace: (selectedIndex.state == 3)
+                  ? FlexibleSpaceBar(
+                      background: Container(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 20.h, left: 1.sw * 0.08, right: 1.sw * 0.08),
+                            child: case2(
+                                selectedIndex.state,
+                                {
+                                  // 2: Text(
+                                  //     "Fill in the form below so we can know exactly \n where to ship your order.",
+                                  //     textAlign: TextAlign.center,
+                                  //     style: b14),
+                                  3: Text(
+                                      (action.state)
+                                          ? "To remove an item, simply tap on the icon on the bottom right corner of the product."
+                                          : "Seems like you don’t have any items \n in your favorite list.",
+                                      textAlign: TextAlign.center,
+                                      style: b14),
+                                },
+                                Text("Default")),
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                : SizedBox(),
-            leading: IconButton(
-              splashRadius: 20,
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                'assets/icons/menu.svg',
-                color: Colors.white,
+                    )
+                  : SizedBox(),
+              leading: IconButton(
+                splashRadius: 20,
+                onPressed: () async {
+                  bool isSigned = await GoogleSignIn().isSignedIn();
+                  if (isSigned) {
+                    await GoogleSignIn().signOut();
+                  }
+                  if (FirebaseAuth.instance.currentUser != null) {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/intro', (Route<dynamic> route) => false);
+                  } else {}
+                },
+                icon: SvgPicture.asset(
+                  'assets/icons/menu.svg',
+                  color: Colors.white,
+                ),
               ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: case2(
-                    selectedIndex.state,
-                    {
-                      3: IconButton(
-                        splashRadius: 20,
-                        color: Colors.white,
-                        onPressed: () {
-                          action.state = !action.state;
-                        },
-                        icon: SvgPicture.asset(
-                          (!action.state)
-                              ? 'assets/icons/trashOut.svg'
-                              : 'assets/icons/close.svg',
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: case2(
+                      selectedIndex.state,
+                      {
+                        3: IconButton(
+                          splashRadius: 20,
                           color: Colors.white,
-                        ),
-                      ),
-                      2: newMethod(action, context),
-                    },
-                    Row(
-                      children: [
-                        IconButton(
-                          splashRadius: 20,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/hastag');
+                            action.state = !action.state;
                           },
                           icon: SvgPicture.asset(
-                            'assets/icons/filter.svg',
+                            (!action.state)
+                                ? 'assets/icons/trashOut.svg'
+                                : 'assets/icons/close.svg',
                             color: Colors.white,
                           ),
                         ),
-                        IconButton(
-                          splashRadius: 20,
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/search');
-                          },
-                          icon: SvgPicture.asset(
-                            'assets/icons/search.svg',
-                            color: Colors.white,
+                        2: countShopping(action, context),
+                      },
+                      Row(
+                        children: [
+                          IconButton(
+                            splashRadius: 20,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/hastag');
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/filter.svg',
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
+                          IconButton(
+                            splashRadius: 20,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/search');
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/search.svg',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ],
+              backgroundColor: Colors.black,
+              title: Text(
+                titleAppbar.state,
+                style: b13.copyWith(color: Colors.white),
               ),
-            ],
-            backgroundColor: Colors.black,
-            title: Text(
-              titleAppbar.state,
-              style: b13.copyWith(color: Colors.white),
             ),
+          ];
+        },
+        body: AnimatedContainer(
+           duration: Duration(milliseconds: 400),
+          width: double.infinity,
+          decoration: whiteCorner,
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: controller,
+            children: [
+              StorePage(),
+              CategoriesPage(),
+              OrderDetail(),
+              FavoritesPage(),
+              SettingMain()
+            ],
           ),
-          SliverToBoxAdapter(
-            child: _widgetOptions.elementAt(selectedIndex.state),
-          )
-        ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 4,
@@ -218,14 +242,20 @@ class MainPageState extends ConsumerWidget {
         currentIndex: selectedIndex.state,
         selectedItemColor: Colors.amber[800],
         onTap: (int index) {
+          controller.animateToPage(
+            index,
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 300),
+          );
           selectedIndex.state = index;
           titleAppbar.state = title[index];
+          
         },
       ),
     ));
   }
 
-  Container newMethod(StateController<bool> action, BuildContext context) {
+  Container countShopping(StateController<bool> action, BuildContext context) {
     return Container(
       child: Center(
         child: Stack(
@@ -273,7 +303,7 @@ class MainPageState extends ConsumerWidget {
 TValue case2<TOptionType, TValue>(
   TOptionType selectedOption,
   Map<TOptionType, TValue> branches, [
-  TValue defaultValue = null,
+  TValue defaultValue,
 ]) {
   if (!branches.containsKey(selectedOption)) {
     return defaultValue;
