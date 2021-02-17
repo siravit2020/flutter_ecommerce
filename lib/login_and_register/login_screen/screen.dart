@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Scaffold(
-          resizeToAvoidBottomPadding: expand,
+          resizeToAvoidBottomInset: expand,
           backgroundColor: Colors.black,
           appBar: AppBar(
             centerTitle: true,

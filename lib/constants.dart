@@ -126,8 +126,8 @@ List<Collections> collection = [
 ];
 
 List<Card> cardDetail = [
-  Card("1234 5783 1231 9123","Ugur Ates","01","2025","312"),
-  Card("4562 1478 5731 1425","SCB","03","2026","142"),
+  Card("1234 5783 1231 9123", "Ugur Ates", "01", "2025", "312"),
+  Card("4562 1478 5731 1425", "SCB", "03", "2026", "142"),
 ];
 
 List<Method> method = [
@@ -135,6 +135,17 @@ List<Method> method = [
   Method("Express (8 days)", "€40"),
   Method("Premium (1 day)", "€80"),
 ];
+
+final InputDecoration decoration = InputDecoration(
+  enabledBorder: const UnderlineInputBorder(
+    borderSide: BorderSide(color: Color(0xffE5E5E5)),
+  ),
+  focusedBorder: const UnderlineInputBorder(
+    borderSide: BorderSide(color: Color(0xFFCC9D76)),
+  ),
+  contentPadding: EdgeInsets.only(left: 10.w),
+  
+);
 
 double pTop;
 double pBottom;
@@ -166,6 +177,7 @@ class Method {
   String price;
   Method(this.method, this.price);
 }
+
 class Country {
   String name;
   String code;

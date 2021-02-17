@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../color_plate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final smsColorState = StateProvider<bool>((ref) {
@@ -52,7 +52,7 @@ class VerificationPage extends ConsumerWidget {
     final river = watch(smsRiverpod);
     final buttonSms = watch(smsButtonState);
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: Stack(
           children: [

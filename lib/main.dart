@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce/intro_screen/page1.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_and_register/login_screen/screen.dart';
 import 'package:flutter_ecommerce/login_and_register/register_screen/register_page.dart';
+import 'package:flutter_ecommerce/login_and_register/verification.dart/verification_page.dart';
 
 import 'package:flutter_ecommerce/main_screen/main_page.dart';
 import 'package:flutter_ecommerce/main_screen/setting/google_map.dart';
@@ -32,8 +33,7 @@ import 'package:flutter_ecommerce/test6.dart';
 import 'package:flutter_ecommerce/test_dynamic.dart';
 
 import 'package:flutter_ecommerce/test_map/map_test.dart';
-import 'package:flutter_ecommerce/verification.dart/verification_page.dart';
-import 'package:flutter_ecommerce/verification.dart/verified.dart';
+
 import 'package:flutter_riverpod/all.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_screen/intro_page.dart';
@@ -110,11 +110,11 @@ class MyApp extends StatelessWidget {
             '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
             '/search': (context) => SearchPage(),
-            '/intro': (context) => IntroPage(),
-            '/verified': (context) => VerifiedPage(),
+            '/intro': (context) => VerificationPage(),
+        
             '/detail': (context) => ProductDetail(),
             '/test2': (context) => LoginScreen(),
-            '/verification': (context) => VerificationPage(),
+          
             '/register': (context) => RegisterPage(),
             
              '/login': (context) => LoginScreen(),

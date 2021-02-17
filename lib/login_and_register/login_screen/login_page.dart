@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_and_register/google_facebook_login.dart';
@@ -173,11 +174,11 @@ class _LoginPageState extends State<LoginPage> {
         if (e.code == 'user-not-found') {
           final snackBar =
               SnackBar(content: Text('No user found for that email.'));
-          ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
+          Scaffold.of(ctx).showSnackBar(snackBar);
         } else if (e.code == 'wrong-password') {
           final snackBar =
               SnackBar(content: Text('Wrong password provided for that user.'));
-          ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
+          Scaffold.of(ctx).showSnackBar(snackBar);
         }
       }
     }
@@ -197,16 +198,7 @@ class _LoginPageState extends State<LoginPage> {
               style: b16,
               controller: emailController,
               cursorColor: const Color(0xffAA7E6F),
-              decoration: InputDecoration(
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                ),
-                contentPadding: EdgeInsets.only(left: 10.w),
-                labelText: 'Email',
-              ),
+              decoration: decoration.copyWith(labelText: 'Email',)
             ),
           ),
           SizedBox(

@@ -34,7 +34,7 @@ class TestDynamic extends ConsumerWidget {
     ScrollController _scrollViewController;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         body: NestedScrollView(
           controller: _scrollViewController,

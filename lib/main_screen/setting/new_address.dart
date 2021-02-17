@@ -71,7 +71,7 @@ class NewAddress extends ConsumerWidget {
     });
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         appBar: StandardAppbar(
           title: "NEW ADDRESS",
