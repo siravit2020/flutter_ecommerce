@@ -12,11 +12,9 @@ import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_and_register/google_facebook_login.dart';
 import 'package:flutter_ecommerce/text_style.dart';
 
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:email_validator/email_validator.dart';
-
 
 _remember(String email, String password, bool remember) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  
   void initState() {
     super.initState();
 
@@ -77,6 +74,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  void showSnack(BuildContext ctx, String title) {
+    final snackBar = SnackBar(content: Text(title));
+    Scaffold.of(ctx).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,6 @@ class _LoginPageState extends State<LoginPage> {
             message: "SIGN IN",
           ),
           Spacer(),
-        
           GoogleAndFacebook(type: true),
           SizedBox(
             height: 10.h,
@@ -167,18 +167,18 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(
                 email: emailController.text, password: passwordController.text);
         Navigator.pop(context);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+        if (userCredential.user.phoneNumber != null)
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/main', (Route<dynamic> route) => false);
+        else {
+          print('Failed');
+        }
       } on FirebaseAuthException catch (e) {
         Navigator.pop(context);
         if (e.code == 'user-not-found') {
-          final snackBar =
-              SnackBar(content: Text('No user found for that email.'));
-          Scaffold.of(ctx).showSnackBar(snackBar);
+          showSnack(ctx, 'No user found for that email.');
         } else if (e.code == 'wrong-password') {
-          final snackBar =
-              SnackBar(content: Text('Wrong password provided for that user.'));
-          Scaffold.of(ctx).showSnackBar(snackBar);
+          showSnack(ctx, 'Wrong password provided for that user.');
         }
       }
     }
@@ -192,14 +192,15 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: w * 0.08),
             child: TextFormField(
-              validator: (value) => EmailValidator.validate(value)
-                  ? null
-                  : "Please enter a valid email",
-              style: b16,
-              controller: emailController,
-              cursorColor: const Color(0xffAA7E6F),
-              decoration: decoration.copyWith(labelText: 'Email',)
-            ),
+                validator: (value) => EmailValidator.validate(value)
+                    ? null
+                    : "Please enter a valid email",
+                style: b16,
+                controller: emailController,
+                cursorColor: const Color(0xffAA7E6F),
+                decoration: decoration.copyWith(
+                  labelText: 'Email',
+                )),
           ),
           SizedBox(
             height: 25.h,

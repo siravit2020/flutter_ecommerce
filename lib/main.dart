@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
             '/main': (context) => MainPageState(),
             '/hastag': (context) => HastagPage(),
             '/search': (context) => SearchPage(),
-            '/intro': (context) => VerificationPage(),
+            '/intro': (context) => IntroPage(),
         
             '/detail': (context) => ProductDetail(),
             '/test2': (context) => LoginScreen(),

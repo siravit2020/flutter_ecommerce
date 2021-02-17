@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_and_register/google_facebook_login.dart';
 import 'package:flutter_ecommerce/login_and_register/riverpod.dart';
+import 'package:flutter_ecommerce/login_and_register/verification.dart/verification_page.dart';
 
 import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -148,28 +150,20 @@ class RegisterPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
               child: TextFormField(
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-                onChanged: (String text) {
-                  textField.username = text;
-                },
-                style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
-                cursorColor: const Color(0xffAA7E6F),
-                decoration: InputDecoration(
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFFCC9D76)),
-                  ),
-                  contentPadding: EdgeInsets.only(left: 10.w),
-                  labelText: "Username",
-                ),
-              ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  onChanged: (String text) {
+                    textField.username = text;
+                  },
+                  style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
+                  cursorColor: const Color(0xffAA7E6F),
+                  decoration: decoration.copyWith(
+                    labelText: "Username",
+                  )),
             ),
             SizedBox(
               height: 25.h,
@@ -177,25 +171,17 @@ class RegisterPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
               child: TextFormField(
-                validator: (value) => EmailValidator.validate(value)
-                    ? null
-                    : "Please enter a valid email",
-                onChanged: (String text) {
-                  textField.email = text;
-                },
-                style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
-                cursorColor: const Color(0xffAA7E6F),
-                decoration: InputDecoration(
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                  ),
-                  contentPadding: EdgeInsets.only(left: 10.w),
-                  labelText: "Email",
-                ),
-              ),
+                  validator: (value) => EmailValidator.validate(value)
+                      ? null
+                      : "Please enter a valid email",
+                  onChanged: (String text) {
+                    textField.email = text;
+                  },
+                  style: TextStyle(fontFamily: 'avenirB', fontSize: 16.sp),
+                  cursorColor: const Color(0xffAA7E6F),
+                  decoration: decoration.copyWith(
+                    labelText: "Email",
+                  )),
             ),
             SizedBox(
               height: 25.h,
@@ -270,31 +256,23 @@ class RegisterPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: w * 0.08),
               child: TextFormField(
-                validator: (value) {
-                  if (value.length != 16) {
-                    return 'Please enter a valid phone number.';
-                  }
-                  return null;
-                },
-                onChanged: (String text) {
-                  textField.phone = text;
-                  print(text.length);
-                },
-                style: b16,
-                inputFormatters: [maskFormatter],
-                keyboardType: TextInputType.number,
-                cursorColor: Color(0xffAA7E6F),
-                decoration: InputDecoration(
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffE5E5E5)),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCC9D76)),
-                  ),
-                  contentPadding: EdgeInsets.only(left: 10.w),
-                  labelText: 'Phone',
-                ),
-              ),
+                  validator: (value) {
+                    if (value.length != 16) {
+                      return 'Please enter a valid phone number.';
+                    }
+                    return null;
+                  },
+                  onChanged: (String text) {
+                    textField.phone = text;
+                    print(text.length);
+                  },
+                  style: b16,
+                  inputFormatters: [maskFormatter],
+                  keyboardType: TextInputType.number,
+                  cursorColor: Color(0xffAA7E6F),
+                  decoration: decoration.copyWith(
+                    labelText: 'Phone',
+                  )),
             ),
           ],
         );
@@ -314,18 +292,20 @@ class RegisterPage extends StatelessWidget {
         CollectionReference users =
             FirebaseFirestore.instance.collection('Users');
 
-        Future<void> addUser() {
-          return users
-              .doc(userCredential.user.uid)
-              .set({'Username': textField.username, 'Phone': textField.phone})
-              .then((value) => Navigator.pop(context))
-              .catchError((error) => print("Failed to add user: $error"));
-        }
-
         userCredential.user.updateProfile(
           displayName: textField.username,
         );
-        addUser();
+        users.doc(userCredential.user.uid).set({
+          'Username': textField.username,
+          'Phone': textField.phone
+        }).then((value) {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => VerificationPage(textField.phone)),
+          );
+        }).catchError((error) => print("Failed to add user: $error"));
       } on FirebaseAuthException catch (e) {
         Navigator.pop(context);
         if (e.code == 'weak-password') {
