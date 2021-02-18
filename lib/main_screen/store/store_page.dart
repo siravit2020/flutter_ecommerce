@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
+import 'package:flutter_ecommerce/main_screen/product_detail_page.dart';
+
+import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../color_plate.dart';
 import '../../constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-      
         children: [
           SizedBox(
             height: 44.h,
@@ -33,8 +35,7 @@ class StorePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
             child: Text("Find the perfect watch for your wrist",
-                style: b14,
-                textAlign: TextAlign.center),
+                style: b14, textAlign: TextAlign.center),
           ),
           SizedBox(
             height: 27.5.h,
@@ -43,7 +44,7 @@ class StorePage extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          rowItem(categoriesName,categoriesPrice,categoriesImage),
+          rowItem(categories),
           SizedBox(
             height: 28.h,
           ),
@@ -52,7 +53,7 @@ class StorePage extends StatelessWidget {
             height: 230.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categoriesImage.length,
+              itemCount: categories.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(left: 15.w),
@@ -74,8 +75,7 @@ class StorePage extends StatelessWidget {
                               ]),
                         ),
                         child: Padding(
-                          padding:
-                              EdgeInsets.only(left: 30.5.w, top: 23.5.h),
+                          padding: EdgeInsets.only(left: 30.5.w, top: 23.5.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -112,8 +112,7 @@ class StorePage extends StatelessWidget {
                         right: -20.w,
                         bottom: 0,
                         child: Image(
-                          image:
-                              AssetImage('assets/image/Gulcehre_ibrik.png'),
+                          image: AssetImage('assets/image/Gulcehre_ibrik.png'),
                           height: 220.h,
                         ),
                       ),
@@ -130,15 +129,15 @@ class StorePage extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          rowItem(featuredName,featuredPrice,featuredImage),
+          rowItem(featured),
           SizedBox(
             height: 10.h,
           ),
-          rowItem(featuredName2,featuredPrice2,featuredImage2),
+          rowItem(featured2),
           SizedBox(
             height: 28.h,
           ),
-         rowSeeAll("Search by brand"),
+          rowSeeAll("Search by brand"),
           SizedBox(
             height: 10.h,
           ),
@@ -146,16 +145,16 @@ class StorePage extends StatelessWidget {
             height: 150.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categoriesImage.length,
+              itemCount: categories.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Column(
                     children: [
                       Image(
-                        image: AssetImage(
-                            'assets/image/${searchByImage[index]}'),
-                       height: 122.h,
+                        image:
+                            AssetImage('assets/image/${searchByImage[index]}'),
+                        height: 122.h,
                       ),
                       SizedBox(
                         height: 10.5.h,
@@ -181,74 +180,83 @@ class StorePage extends StatelessWidget {
 
   Padding rowSeeAll(String title) {
     return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style:h20,
-                  textAlign: TextAlign.center,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "See all",
-                      style: b14.copyWith(color: brownGoldColor),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 4.3.w,
-                    ),
-                    SvgPicture.asset(
-                      'assets/icons/doubleArrows.svg',
-                      width: 5.67,
-                      color: brownGoldColor,
-                    )
-                  ],
-                ),
-              ],
-            ),
-          );
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: h20,
+            textAlign: TextAlign.center,
+          ),
+          Row(
+            children: [
+              Text(
+                "See all",
+                style: b14.copyWith(color: brownGoldColor),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                width: 4.3.w,
+              ),
+              SvgPicture.asset(
+                'assets/icons/doubleArrows.svg',
+                width: 5.67,
+                color: brownGoldColor,
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
-  SizedBox rowItem(List<String> listName,List<String> listPrice,List<String> listIamge) {
-    return SizedBox(
-            height: 230.h,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categoriesImage.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: (){Navigator.pushNamed(context, '/detail');},
-                      child: Image(
-                        image: AssetImage(
-                            'assets/image/${listIamge[index]}'),
 
-                        height: 150.h,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.5.h,
-                    ),
-                    Text(
-                      listName[index],
-                      style: b14.copyWith(color: Colors.black),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      listPrice[index],
-                      style: h20,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                );
-              },
-            ),
+  SizedBox rowItem(List<Collections> list) {
+    return SizedBox(
+      height: 230.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetail('${list[index].id}')),
+                  );
+                },
+                child: Hero(
+                  tag: '${list[index].id}',
+                  child: Image(
+                    image: AssetImage('assets/image/${list[index].image}'),
+                    height: 150.h,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.5.h,
+              ),
+              Text(
+                list[index].name,
+                style: b14.copyWith(color: Colors.black),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                list[index].price,
+                style: h20,
+                textAlign: TextAlign.center,
+              ),
+            ],
           );
+        },
+      ),
+    );
   }
 }

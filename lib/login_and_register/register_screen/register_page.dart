@@ -24,6 +24,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 var maskFormatter = new MaskTextInputFormatter(
     mask: '+66 ### ### ####', filter: {"#": RegExp(r'[0-9]')});
 
+void showSnack(BuildContext ctx, String title) {
+  final snackBar = SnackBar(content: Text(title));
+  Scaffold.of(ctx).showSnackBar(snackBar);
+}
+
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key key}) : super(key: key);
 
@@ -282,9 +287,11 @@ class RegisterPage extends StatelessWidget {
 
   Future register(BuildContext context, StateController<bool> passwordColor,
       TestControllerChange textField) async {
+        FocusScope.of(context).unfocus();
     if (!passwordColor.state)
       //Navigator.pushNamed(context, '/loading');
       try {
+        
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: textField.email, password: textField.pass);
@@ -300,6 +307,7 @@ class RegisterPage extends StatelessWidget {
           'Phone': textField.phone
         }).then((value) {
           Navigator.pop(context);
+          
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -309,9 +317,11 @@ class RegisterPage extends StatelessWidget {
       } on FirebaseAuthException catch (e) {
         Navigator.pop(context);
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+         
+          showSnack(context, 'The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          showSnack(context, 'The account already exists for that email.');
+          
         }
       } catch (e) {
         print(e);

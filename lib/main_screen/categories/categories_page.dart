@@ -74,7 +74,7 @@ class MainPage extends ConsumerWidget {
         SizedBox(
           height: 10.h,
         ),
-        rowItem(categoriesName, categoriesPrice, categoriesImage),
+        rowItem(categories),
         SizedBox(
           height: 28.h,
         ),
@@ -83,7 +83,7 @@ class MainPage extends ConsumerWidget {
         SizedBox(
           height: 10.h,
         ),
-        rowItem(featuredName, featuredPrice, featuredImage),
+        rowItem(featured),
         SizedBox(
           height: 28.h,
         ),
@@ -91,7 +91,7 @@ class MainPage extends ConsumerWidget {
         SizedBox(
           height: 10.h,
         ),
-        rowItem(featuredName2, featuredPrice2, featuredImage2),
+        rowItem(featured2),
         SizedBox(
           height: 16.5.h,
         ),
@@ -149,12 +149,12 @@ class MainPage extends ConsumerWidget {
   }
 
   SizedBox rowItem(
-      List<String> listName, List<String> listPrice, List<String> listIamge) {
+      List<Collections> list) {
     return SizedBox(
       height: 230.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: categoriesImage.length,
+        itemCount: list.length,
         itemBuilder: (context, index) {
           var ran = Random().nextInt(2);
           return Column(
@@ -164,7 +164,7 @@ class MainPage extends ConsumerWidget {
                 child: Stack(
                   children: [
                     Image(
-                      image: AssetImage('assets/image/${listIamge[index]}'),
+                      image: AssetImage('assets/image/${list[index].image}'),
                       height: 150.h,
                     ),
                     if (ran == 0)
@@ -201,7 +201,7 @@ class MainPage extends ConsumerWidget {
                 height: 10.5.h,
               ),
               Text(
-                listName[index],
+                list[index].name,
                 style: b14.copyWith(color: Colors.black),
                 textAlign: TextAlign.center,
               ),
@@ -209,7 +209,7 @@ class MainPage extends ConsumerWidget {
                 height: 5.h,
               ),
               Text(
-                listPrice[index],
+                list[index].price,
                 style: h20,
                 textAlign: TextAlign.center,
               ),

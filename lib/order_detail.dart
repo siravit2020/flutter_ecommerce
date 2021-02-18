@@ -393,7 +393,7 @@ final paymentState = StateProvider<List<String>>((ref) {
 
 class OrderDetail extends ConsumerWidget {
   const OrderDetail({Key key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final w = MediaQuery.of(context).size.width;

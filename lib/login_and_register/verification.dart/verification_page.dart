@@ -166,6 +166,15 @@ class VerificationPage extends StatelessWidget {
                               onCompleted: (v) {
                                 print("Completed $v");
                                 sms = v;
+                                check(sms, id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoadingPage(
+                                      nextPage: '/verified',
+                                    ),
+                                  ),
+                                );
                               },
                               onChanged: (value) {
                                 if (value.length == 6)
@@ -210,15 +219,6 @@ class VerificationPage extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
                       onPressed: () {
                         if (buttonSms.state) river.startTimer();
-                        check(sms, id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoadingPage(
-                              nextPage: '/verified',
-                            ),
-                          ),
-                        );
                       },
                       color: (buttonSms.state)
                           ? brownGoldColor

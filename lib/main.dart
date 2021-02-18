@@ -6,6 +6,7 @@ import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/login_and_register/login_screen/screen.dart';
 import 'package:flutter_ecommerce/login_and_register/register_screen/register_page.dart';
 import 'package:flutter_ecommerce/login_and_register/verification.dart/verification_page.dart';
+import 'package:flutter_ecommerce/login_and_register/verification.dart/verified.dart';
 
 import 'package:flutter_ecommerce/main_screen/main_page.dart';
 import 'package:flutter_ecommerce/main_screen/setting/google_map.dart';
@@ -19,7 +20,7 @@ import 'package:flutter_ecommerce/main_screen/setting/order_history.dart';
 import 'package:flutter_ecommerce/main_screen/setting/setting.dart';
 import 'package:flutter_ecommerce/main_screen/setting/setting_main.dart';
 
-import 'package:flutter_ecommerce/more_detail.dart';
+
 import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/order_success.dart';
@@ -30,7 +31,7 @@ import 'package:flutter_ecommerce/select_country.dart';
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
 import 'package:flutter_ecommerce/shipping_info.dart';
 import 'package:flutter_ecommerce/test6.dart';
-import 'package:flutter_ecommerce/test_dynamic.dart';
+
 
 import 'package:flutter_ecommerce/test_map/map_test.dart';
 
@@ -40,7 +41,6 @@ import 'intro_screen/intro_page.dart';
 import 'intro_screen/page2.dart';
 import 'intro_screen/page3.dart';
 
-import 'main_screen/categories/product_detail_page.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'seach_and_hastag/hastag.dart';
@@ -111,8 +111,8 @@ class MyApp extends StatelessWidget {
             '/hastag': (context) => HastagPage(),
             '/search': (context) => SearchPage(),
             '/intro': (context) => IntroPage(),
-        
-            '/detail': (context) => ProductDetail(),
+            '/verified': (context) => VerifiedPage(),
+         
             '/test2': (context) => LoginScreen(),
           
             '/register': (context) => RegisterPage(),
@@ -134,7 +134,7 @@ class MyApp extends StatelessWidget {
             '/payment': (context) => PaymentDetail(),
             '/map': (context) => MapFull(),
             '/mylocation': (context) => MyLocation(),
-            '/test': (context) => TestDynamic(),
+
        
             '/testload': (context) => LoadingPage(
                   nextPage: "null",

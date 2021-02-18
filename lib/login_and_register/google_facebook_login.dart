@@ -17,7 +17,12 @@ class GoogleAndFacebook extends StatelessWidget {
   }) : super(key: key);
 
   final bool type;
-  void face() async {
+  void showSnack(BuildContext ctx, String title) {
+    final snackBar = SnackBar(content: Text(title));
+    Scaffold.of(ctx).showSnackBar(snackBar);
+  }
+
+  void face(BuildContext context) async {
     final facebookLogin = FacebookLogin();
 
     final result = await facebookLogin.logIn(['email', 'public_profile']);
@@ -29,7 +34,7 @@ class GoogleAndFacebook extends StatelessWidget {
 
         String token = result.accessToken.token;
         final graphResponse = await http.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=${token}');
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=$token');
 
         Map profile = jsonDecode(graphResponse.body);
         print("Access token = $token");
@@ -37,7 +42,11 @@ class GoogleAndFacebook extends StatelessWidget {
           print(key);
           print(value);
         });
-        await auth.signInWithCredential(FacebookAuthProvider.credential(token));
+        await auth
+            .signInWithCredential(FacebookAuthProvider.credential(token))
+            .catchError((e) => showSnack(context, 'Try Again'))
+            .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(
+                '/main', (Route<dynamic> route) => false));
         var current = auth.currentUser;
 
         current.updateProfile(
@@ -49,11 +58,10 @@ class GoogleAndFacebook extends StatelessWidget {
         print(auth.currentUser.photoURL);
         break;
       case FacebookLoginStatus.cancelledByUser:
-        // _showCancelledMessage();
+        showSnack(context, 'cancle');
         break;
       case FacebookLoginStatus.error:
-        // _showErrorOnUI(result.errorMessage);
-        print('facebook error' + result.errorMessage);
+        showSnack(context, 'facebook error' + result.errorMessage);
         break;
     }
   }
@@ -74,9 +82,12 @@ class GoogleAndFacebook extends StatelessWidget {
 
     GoogleSignInAuthentication userAuth = await user.authentication;
 
-    await FirebaseAuth.instance.signInWithCredential(
-        GoogleAuthProvider.credential(
-            idToken: userAuth.idToken, accessToken: userAuth.accessToken));
+    await FirebaseAuth.instance
+        .signInWithCredential(GoogleAuthProvider.credential(
+            idToken: userAuth.idToken, accessToken: userAuth.accessToken))
+        .catchError((e) => showSnack(context, 'Try Again'))
+        .then((value) => Navigator.of(context)
+            .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false));
     print(auth.currentUser.email);
     print(auth.currentUser.displayName);
     print(auth.currentUser.uid);
@@ -92,7 +103,7 @@ class GoogleAndFacebook extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
         onPressed: () {
           if (auth.currentUser == null)
-            type ? loginWithGoogle(context) : face();
+            type ? loginWithGoogle(context) : face(context);
         },
         textColor: type ? const Color(0xffDE4D3B) : const Color(0xff4267B2),
         shape: RoundedRectangleBorder(

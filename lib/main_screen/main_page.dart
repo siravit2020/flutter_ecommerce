@@ -12,6 +12,7 @@ import 'package:flutter_ecommerce/order_detail.dart';
 
 import 'package:flutter_ecommerce/seach_and_hastag/hastag.dart';
 import 'package:flutter_ecommerce/text_style.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,7 +66,9 @@ class MainPageState extends ConsumerWidget {
                           alignment: Alignment.center,
                           child: Padding(
                             padding: EdgeInsets.only(
-                                top: 20.h, left: 1.sw * 0.08, right: 1.sw * 0.08),
+                                top: 20.h,
+                                left: 1.sw * 0.08,
+                                right: 1.sw * 0.08),
                             child: case2(
                                 selectedIndex.state,
                                 {
@@ -90,8 +93,13 @@ class MainPageState extends ConsumerWidget {
                 splashRadius: 20,
                 onPressed: () async {
                   bool isSigned = await GoogleSignIn().isSignedIn();
+
+                  bool isSignedFace = await FacebookLogin().isLoggedIn;
                   if (isSigned) {
                     await GoogleSignIn().signOut();
+                  }
+                  if (isSignedFace) {
+                    await FacebookLogin().logOut();
                   }
                   if (FirebaseAuth.instance.currentUser != null) {
                     await FirebaseAuth.instance.signOut();
@@ -160,7 +168,7 @@ class MainPageState extends ConsumerWidget {
           ];
         },
         body: AnimatedContainer(
-           duration: Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 400),
           width: double.infinity,
           decoration: whiteCorner,
           child: PageView(
@@ -249,7 +257,6 @@ class MainPageState extends ConsumerWidget {
           );
           selectedIndex.state = index;
           titleAppbar.state = title[index];
-          
         },
       ),
     ));

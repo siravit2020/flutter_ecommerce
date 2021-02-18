@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     final snackBar = SnackBar(content: Text(title));
     Scaffold.of(ctx).showSnackBar(snackBar);
   }
+  
 
   @override
   Widget build(BuildContext context) {

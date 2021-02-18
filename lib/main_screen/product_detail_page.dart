@@ -4,28 +4,27 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/main_screen/widgets/star.dart';
-import 'package:flutter_ecommerce/more_detail.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/more_detail2.dart';
-import 'package:flutter_ecommerce/more_detail3.dart';
+
 import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetail extends ConsumerWidget {
-  const ProductDetail({Key key}) : super(key: key);
-
+  const ProductDetail(this.tag, {Key key}) : super(key: key);
+  final String tag;
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final w = MediaQuery.of(context).size.width;
     final w5 = MediaQuery.of(context).size.width / 5;
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
-
+    final Collections item = allItem[int.parse(tag)];
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -51,9 +50,13 @@ class ProductDetail extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image(
-                image: AssetImage('assets/image/Gulcehre_ibrik.png'),
-                height: height * 0.4,
+              Hero(
+                tag: tag,
+                child: Image(
+                  image: AssetImage(
+                      'assets/image/${item.image}'),
+                  height: height * 0.4,
+                ),
               ),
               Container(
                 width: double.infinity,
@@ -79,7 +82,7 @@ class ProductDetail extends ConsumerWidget {
                             height: 44.h,
                           ),
                           Text(
-                            "Hagia Sophia Deesis Mosaic Vase",
+                            item.name,
                             style: h30,
                             textAlign: TextAlign.center,
                           ),
@@ -114,7 +117,7 @@ class ProductDetail extends ConsumerWidget {
                             height: 30.h,
                           ),
                           Text(
-                            "€3450",
+                            item.price,
                             style: h30.copyWith(color: brownGoldColor),
                           ),
                           SizedBox(
@@ -134,7 +137,7 @@ class ProductDetail extends ConsumerWidget {
                     SizedBox(
                       height: 27,
                     ),
-                    rowItem(featuredName2, featuredPrice2, featuredImage2),
+                    rowItem(featured2),
                   ],
                 ),
               ),
@@ -146,13 +149,12 @@ class ProductDetail extends ConsumerWidget {
   }
 }
 
-SizedBox rowItem(
-    List<String> listName, List<String> listPrice, List<String> listIamge) {
+SizedBox rowItem(List<Collections> list) {
   return SizedBox(
     height: 230.h,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: listName.length,
+      itemCount: list.length,
       itemBuilder: (context, index) {
         var ran = Random().nextInt(2);
         return Column(
@@ -162,7 +164,7 @@ SizedBox rowItem(
               child: Stack(
                 children: [
                   Image(
-                    image: AssetImage('assets/image/${listIamge[index]}'),
+                    image: AssetImage('assets/image/${list[index].image}'),
                     height: 150.h,
                   ),
                   if (ran == 0)
@@ -190,7 +192,7 @@ SizedBox rowItem(
               height: 10.5.h,
             ),
             Text(
-              listName[index],
+              list[index].name,
               style: b14.copyWith(color: Colors.black),
               textAlign: TextAlign.center,
             ),
@@ -198,7 +200,7 @@ SizedBox rowItem(
               height: 5.h,
             ),
             Text(
-              listPrice[index],
+              list[index].price,
               style: m24,
               textAlign: TextAlign.center,
             ),

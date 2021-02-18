@@ -10,8 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
 class VerifiedPage extends ConsumerWidget {
   const VerifiedPage({Key key}) : super(key: key);
 
@@ -53,7 +51,7 @@ class VerifiedPage extends ConsumerWidget {
                     ),
                     Text(
                       "Phone verified",
-                      style:h30,
+                      style: h30,
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
@@ -66,13 +64,12 @@ class VerifiedPage extends ConsumerWidget {
                   ],
                 ),
               ),
-           
               ButtonFill(
                 width: w5 * 3,
                 message: "CONTINUED",
                 color: brownGoldColor,
                 fuction: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pop(context);
                 },
               ),
               SizedBox(
