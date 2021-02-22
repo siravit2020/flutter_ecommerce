@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
+import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_ecommerce/text_style.dart';
@@ -32,8 +33,7 @@ class _MyLocationState extends State<MyLocation> {
 
   var textAddress = TextEditingController();
   void setCustomMarker() async {
-    Uint8List markerIcon =
-        await getBytesFromAsset('assets/image/Slider.png', 80);
+    Uint8List markerIcon = await getBytesFromAsset('assets/image/Slider.png', 80);
     mapMarker = BitmapDescriptor.fromBytes(markerIcon);
     final marker2 = Marker(
       anchor: Offset(0.5, 0.5),
@@ -57,12 +57,9 @@ class _MyLocationState extends State<MyLocation> {
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
-        .buffer
-        .asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
   }
 
   void gett(double lan, double long) async {
@@ -82,7 +79,7 @@ class _MyLocationState extends State<MyLocation> {
       print('${d.first.postalCode}');
       print('${d.first.featureName}');
       print('${d.first.thoroughfare}');
-    
+
       address = d.first.addressLine;
       textAddress.text = address;
       setState(() {});
@@ -100,16 +97,13 @@ class _MyLocationState extends State<MyLocation> {
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permantly denied, we cannot request permissions.');
+      return Future.error('Location permissions are permantly denied, we cannot request permissions.');
     }
 
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
-        return Future.error(
-            'Location permissions are denied (actual value: $permission).');
+      if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+        return Future.error('Location permissions are denied (actual value: $permission).');
       }
     }
 
@@ -128,7 +122,6 @@ class _MyLocationState extends State<MyLocation> {
 
   @override
   Widget build(BuildContext context) {
-
     final w = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -144,7 +137,7 @@ class _MyLocationState extends State<MyLocation> {
                 children: [
                   ClipPath(
                     child: SizedBox(
-                      height: 1.sh/2.1,
+                      height: 1.sh / 2.1,
                       width: double.infinity,
                       child: Center(
                         child: GoogleMap(
@@ -175,8 +168,7 @@ class _MyLocationState extends State<MyLocation> {
                             target: location,
                             zoom: 14.4746,
                           ),
-                          gestureRecognizers:
-                              <Factory<OneSequenceGestureRecognizer>>[
+                          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
                             new Factory<OneSequenceGestureRecognizer>(
                               () => new EagerGestureRecognizer(),
                             ),
@@ -206,7 +198,7 @@ class _MyLocationState extends State<MyLocation> {
                           ),
                           Text(
                             "Select your location form the map",
-                            style:h30,
+                            style: h30,
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
@@ -228,17 +220,7 @@ class _MyLocationState extends State<MyLocation> {
                                 readOnly: true,
                                 controller: textAddress,
                                 cursorColor: Color(0xffAA7E6F),
-                                decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffE5E5E5)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFCC9D76)),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.only(left: 10.w, right: 50),
+                                decoration: decoration.copyWith(
                                   labelText: 'Address',
                                 ),
                               ),

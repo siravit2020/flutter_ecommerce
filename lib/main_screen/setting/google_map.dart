@@ -7,7 +7,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
-import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/loading_screen/loading_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoder/geocoder.dart';
@@ -149,9 +148,6 @@ class _MapFullState extends State<MapFull> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

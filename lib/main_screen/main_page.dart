@@ -30,7 +30,7 @@ List<String> title = [
   'CATEGORIES',
   'SHIPPING ADDRESS',
   'FAVORITES',
-  'SETTING'
+  'SETTING & MORE'
 ];
 
 final selectedIndexState = StateProvider<int>((ref) {

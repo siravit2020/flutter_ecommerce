@@ -26,14 +26,10 @@ import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/order_success.dart';
 import 'package:flutter_ecommerce/payment_detail.dart';
 
-import 'package:flutter_ecommerce/select_country.dart';
 
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
 import 'package:flutter_ecommerce/shipping_info.dart';
-import 'package:flutter_ecommerce/test6.dart';
 
-
-import 'package:flutter_ecommerce/test_map/map_test.dart';
 
 import 'package:flutter_riverpod/all.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

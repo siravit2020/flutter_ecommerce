@@ -9,6 +9,7 @@ import 'package:flutter_ecommerce/text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class LatestArticles extends ConsumerWidget {
   const LatestArticles({Key key}) : super(key: key);
 
@@ -20,7 +21,9 @@ class LatestArticles extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: StandardAppbar(title: "LATEST ARTICLES",),
+          appBar: StandardAppbar(
+            title: "LATEST ARTICLES",
+          ),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
@@ -29,37 +32,43 @@ class LatestArticles extends ConsumerWidget {
             decoration: whiteCorner,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: 41.h,
-                    ),
-                    item("“Soteria” Vase buy in the next year", "SoteriaVase.png"),
-                    SizedBox(
-                      height: 21.h,
-                    ),
-                     item("“Devr-i Alem” Flask buy in the next year", "KavukVase.png"),
-                    SizedBox(
-                      height: 60,
-                    )
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+                  child: LayoutBuilder(
+                    builder: (context, constrain) {
+                      double width = constrain.constrainWidth();
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SizedBox(
+                            height: 41.h,
+                          ),
+                          item("“Soteria” Vase buy in the next year",
+                              "SoteriaVase.png", width),
+                          SizedBox(
+                            height: 21.h,
+                          ),
+                          item("“Devr-i Alem” Flask buy in the next year",
+                              "KavukVase.png", width),
+                          SizedBox(
+                            height: 60,
+                          )
+                        ],
+                      );
+                    },
+                  )),
             ),
           )),
     );
   }
 
-  Column item(String title, String image) {
+  Column item(String title, String image, double constrainWidth) {
     return Column(
       children: [
         Stack(
           children: [
             Container(
-              height: 200.h,
+              height: constrainWidth*0.635,
               width: double.infinity,
               decoration: new BoxDecoration(
                 color: Colors.black,
@@ -74,8 +83,8 @@ class LatestArticles extends ConsumerWidget {
               right: 10.5.w,
               child: SvgPicture.asset(
                 'assets/icons/Icons-icon-added-to-fav.svg',
-                width: 30,
-                height: 30,
+                width: 30.w,
+                height: 30.w,
               ),
             )
           ],
@@ -94,8 +103,8 @@ class LatestArticles extends ConsumerWidget {
           children: [
             SvgPicture.asset(
               'assets/icons/icon-clock.svg',
-              width: 11,
-              height: 11,
+              width: 11.w,
+              height: 11.w,
             ),
             SizedBox(
               width: 6.5.w,
@@ -128,11 +137,11 @@ class LatestArticles extends ConsumerWidget {
                 textAlign: TextAlign.start,
               ),
               SizedBox(
-                width: 4.3,
+                width: 4.3.w,
               ),
               SvgPicture.asset(
                 'assets/icons/doubleArrows.svg',
-                width: 5.67,
+                height: 5.67.h,
                 color: brownGoldColor,
               )
             ],

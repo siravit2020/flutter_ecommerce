@@ -81,8 +81,8 @@ class FavoritesPage extends ConsumerWidget {
                             (action.state)
                                 ? 'assets/icons/trashRed.svg'
                                 : 'assets/icons/Icons-icon-added-to-fav.svg',
-                            width: 28,
-                            height: 28,
+                            width: 28.h,
+                            height: 28.h,
                           ),
                         ),
                       )
@@ -97,7 +97,7 @@ class FavoritesPage extends ConsumerWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 5.h,
                   ),
                   Text(
                     collecItem.list[index].price,
@@ -109,7 +109,7 @@ class FavoritesPage extends ConsumerWidget {
             },
           ),
           SizedBox(
-            height: 47,
+            height: 47.h,
           ),
         ],
       ),

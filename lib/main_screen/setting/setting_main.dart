@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants.dart';
 import 'package:flutter_ecommerce/text_style.dart';
@@ -6,15 +7,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../color_plate.dart';
 
 class SettingMain extends StatelessWidget {
+  final User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          SizedBox(height: 16.5.h),
+          SizedBox(height: 20.h),
           Stack(
             children: [
               Container(
@@ -23,14 +27,23 @@ class SettingMain extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.circle,
+                  image: user.photoURL != null
+                      ? DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(user.photoURL),
+                        )
+                      : null,
                 ),
                 child: Center(
-                    child: SvgPicture.asset(
-                  'assets/icons/ua_ico.svg',
-                  width: 34,
-                  height: 34,
-                  color: Colors.white,
-                )),
+                  child: user.photoURL != null
+                      ? null
+                      : SvgPicture.asset(
+                          'assets/icons/ua_ico.svg',
+                          width: 34,
+                          height: 34,
+                          color: Colors.white,
+                        ),
+                ),
               ),
               Positioned(
                 right: 0,
@@ -55,71 +68,29 @@ class SettingMain extends StatelessWidget {
           ),
           SizedBox(height: 22.5.h),
           Text(
-            "Ugur Ates",
+            user.displayName ?? "Ugur Ates",
             style: h20,
           ),
           SizedBox(height: 1),
           Text(
-            "ugurates19@gmail.com",
+            user.email ?? "ugurates19@gmail.com",
             style: b14.copyWith(color: Colors.black),
           ),
           SizedBox(height: 2),
-          newMethod(context,w, "Order History","orderhistory"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "My Addresses","myaddress"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "My Cards","mycard"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "Vouches","myvouches"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "Nearby Stores","map"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "Latest Articles","latest"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
-          newMethod(context,w, "Setting","setting"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.08),
-            child: Divider(
-              thickness: 1,
-              height: 0,
-            ),
-          ),
+          item(context, w, "Order History", "orderhistory"),
+          underLine(w),
+          item(context, w, "My Addresses", "myaddress"),
+          underLine(w),
+          item(context, w, "My Cards", "mycard"),
+          underLine(w),
+          item(context, w, "Vouches", "myvouches"),
+          underLine(w),
+          item(context, w, "Nearby Stores", "map"),
+          underLine(w),
+          item(context, w, "Latest Articles", "latest"),
+          underLine(w),
+          item(context, w, "Setting", "setting"),
+          underLine(w),
           SizedBox(
             height: 30.h,
           )
@@ -128,7 +99,18 @@ class SettingMain extends StatelessWidget {
     );
   }
 
-  GestureDetector newMethod(BuildContext context,double w, String title,String page) {
+  Padding underLine(double w) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: w * 0.08),
+      child: Divider(
+        thickness: 1,
+        height: 0,
+      ),
+    );
+  }
+
+  GestureDetector item(
+      BuildContext context, double w, String title, String page) {
     return GestureDetector(
       onTap: () {
         print(title);
@@ -138,7 +120,10 @@ class SettingMain extends StatelessWidget {
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(
-              top: 30.h, bottom: 16.h, right: w * 0.08 + 10.w, left: w * 0.08 + 10.w),
+              top: 30.h,
+              bottom: 16.h,
+              right: w * 0.08 + 10.w,
+              left: w * 0.08 + 10.w),
           child: Column(
             children: [
               Column(
@@ -150,11 +135,10 @@ class SettingMain extends StatelessWidget {
                         title,
                         style: b16,
                       ),
-                     
                       SvgPicture.asset(
                         'assets/icons/arrow_right.svg',
-                        width: 12,
-                        height: 12,
+                        width: 12.h,
+                        height: 12.h,
                         color: Colors.black,
                       )
                     ],

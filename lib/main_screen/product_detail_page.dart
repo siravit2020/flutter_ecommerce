@@ -16,15 +16,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductDetail extends ConsumerWidget {
+class ProductDetail extends StatefulWidget {
   const ProductDetail(this.tag, {Key key}) : super(key: key);
   final String tag;
+
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  _ProductDetailState createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends State<ProductDetail> {
+  double position = 0;
+  bool show = true;
+  bool end = false;
+  @override
+  Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final w5 = MediaQuery.of(context).size.width / 5;
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
-    final Collections item = allItem[int.parse(tag)];
+    final Collections item = allItem[int.parse(widget.tag)];
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -43,107 +53,208 @@ class ProductDetail extends ConsumerWidget {
           style: b13,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Hero(
-                tag: tag,
-                child: Image(
-                  image: AssetImage(
-                      'assets/image/${item.image}'),
-                  height: height * 0.4,
-                ),
-              ),
-              Container(
+      body: Stack(
+        children: [
+          NotificationListener<ScrollNotification>(
+            onNotification: (scrollNotification) {
+              if (scrollNotification is ScrollStartNotification) {
+                //  print('start ${scrollNotification.metrics}');
+                if (scrollNotification.metrics.pixels == 0)
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    print("true");
+
+                    setState(() {
+                      show = false;
+                    });
+                  });
+                if (scrollNotification.metrics.pixels > 0) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                   
+                    setState(() {
+                      show = true;
+                    });
+                  });
+                }
+                if (scrollNotification.metrics.pixels == scrollNotification.metrics.maxScrollExtent) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    end = true;
+                   
+                    setState(() {
+                      show = true;
+                    });
+                  });
+                }
+              } else if (scrollNotification is ScrollUpdateNotification) {
+                
+                
+
+                // print('update ${scrollNotification.metrics.pixels}');
+              }
+              return true;
+            },
+            child: SingleChildScrollView(
+              child: Container(
                 width: double.infinity,
-                constraints: new BoxConstraints(
-                  minHeight: height / 2,
-                ),
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(20.0),
-                    topRight: const Radius.circular(20.0),
-                  ),
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                    Hero(
+                      tag: widget.tag,
+                      child: Image(
+                        image: AssetImage('assets/image/${item.image}'),
+                        height: height * 0.4,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      constraints: new BoxConstraints(
+                        minHeight: height / 2,
+                      ),
+                      decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                          topLeft: const Radius.circular(20.0),
+                          topRight: const Radius.circular(20.0),
+                        ),
+                      ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          SizedBox(
-                            height: 44.h,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 44.h,
+                                ),
+                                Text(
+                                  item.name,
+                                  style: h30,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 14.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    StarRow(),
+                                    SizedBox(
+                                      width: 8.w,
+                                    ),
+                                    Text(
+                                      "1.248 Reviews",
+                                      style: TextStyle(color: Colors.black, fontFamily: 'avenirB', fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 27.h,
+                                ),
+                                Text(
+                                  "The Virgin Mary in the “Deesis” scene in the south\ngallery of Hagia Sophia is depicted on the Hagia\nSophia Mosaic Vase.",
+                                  textAlign: TextAlign.center,
+                                  style: b12,
+                                ),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                Text(
+                                  item.price,
+                                  style: h30.copyWith(color: brownGoldColor),
+                                ),
+                                SizedBox(
+                                  height: 26.h,
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            item.name,
-                            style: h30,
-                            textAlign: TextAlign.center,
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
+                            height: (show && !end) ? 1.sh * 0.3 : 0,
                           ),
-                          SizedBox(
-                            height: 14.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Column(
                             children: [
-                              StarRow(),
-                              SizedBox(
-                                width: 8.w,
-                              ),
+                              MoreDetails2(),
                               Text(
-                                "1.248 Reviews",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'avenirB',
-                                    fontSize: 12),
+                                "Similar products",
+                                style: TextStyle(color: Colors.black, fontFamily: 'avenirH', fontSize: 24),
                               ),
+                              SizedBox(
+                                height: 27.h,
+                              ),
+                              rowItem(featured2),
                             ],
                           ),
                           SizedBox(
-                            height: 27.h,
-                          ),
-                          Text(
-                            "The Virgin Mary in the “Deesis” scene in the south\ngallery of Hagia Sophia is depicted on the Hagia\nSophia Mosaic Vase.",
-                            textAlign: TextAlign.center,
-                            style: b12,
-                          ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Text(
-                            item.price,
-                            style: h30.copyWith(color: brownGoldColor),
-                          ),
-                          SizedBox(
-                            height: 26.h,
+                            height: 80.h,
                           ),
                         ],
                       ),
                     ),
-                    MoreDetails2(),
-                    Text(
-                      "Similar products",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'avenirH',
-                          fontSize: 24),
-                    ),
-                    SizedBox(
-                      height: 27,
-                    ),
-                    rowItem(featured2),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          AnimatedPositioned(
+            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 300),
+            bottom: show ? 16.5.h : -kToolbarHeight,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 50.h,
+                  width: 50.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xffF7F7F7),
+                  ),
+                  child: Center(
+                      child: SvgPicture.asset(
+                    'assets/icons/Icons-bookmark-filled.svg',
+                    height: 14.h,
+                    width: 14.h,
+                  )),
+                ),
+                SizedBox(
+                  width: 9.5.w,
+                ),
+                ButtonFill(
+                  color: brownGoldColor,
+                  fuction: () {
+                    show = !show;
+                    setState(() {});
+                  },
+                  message: 'ADD TO CART',
+                  width: w5 * 3,
+                ),
+                SizedBox(
+                  width: 9.5.w,
+                ),
+                Container(
+                  height: 50.h,
+                  width: 50.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xffF7F7F7),
+                  ),
+                  child: Center(
+                      child: SvgPicture.asset(
+                    'assets/icons/arrow-right.svg',
+                    height: 14.h,
+                    width: 14.h,
+                  )),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

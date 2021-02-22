@@ -1,31 +1,29 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/text_style.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class OrderHistory extends ConsumerWidget {
   const OrderHistory({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: StandardAppbar(title: "ORDER HISTORY",),
+          appBar: StandardAppbar(
+            title: "ORDER HISTORY",
+          ),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
               minHeight: height,
             ),
-            decoration:whiteCorner,
+            decoration: whiteCorner,
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 1.sw * 0.08),
@@ -36,22 +34,26 @@ class OrderHistory extends ConsumerWidget {
                     SizedBox(
                       height: 41.h,
                     ),
-                    detailsOrder(21412,"23th of January", "230.99", "Delivered"),
+                    detailsOrder(
+                        21412, "23th of January", "230.99", "Delivered"),
                     Divider(
                       thickness: 1,
                       height: 62.h,
                     ),
-                    detailsOrder(21403,"31st of December", "99.00", "Delivered"),
+                    detailsOrder(
+                        21403, "31st of December", "99.00", "Delivered"),
                     Divider(
                       thickness: 1,
                       height: 62.h,
                     ),
-                    detailsOrder(21358,"14th of November", "599.00", "Delivered"),
+                    detailsOrder(
+                        21358, "14th of November", "599.00", "Delivered"),
                     Divider(
                       thickness: 1,
                       height: 62.h,
                     ),
-                    detailsOrder(21313,"2nd ot December", "599.00", "Delivered"),
+                    detailsOrder(
+                        21313, "2nd ot December", "599.00", "Delivered"),
                     Divider(
                       thickness: 1,
                       height: 62.h,
@@ -64,10 +66,10 @@ class OrderHistory extends ConsumerWidget {
     );
   }
 
-  Column detailsOrder(int order,String placedOn, String amount, String status) {
+  Column detailsOrder(
+      int order, String placedOn, String amount, String status) {
     return Column(
       children: [
-   
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -81,7 +83,7 @@ class OrderHistory extends ConsumerWidget {
             ),
           ],
         ),
-             SizedBox(
+        SizedBox(
           height: 24.h,
         ),
         Row(

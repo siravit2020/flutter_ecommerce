@@ -13,8 +13,7 @@ class MoreDetails2 extends StatefulWidget {
   _MoreDetails2State createState() => _MoreDetails2State();
 }
 
-class _MoreDetails2State extends State<MoreDetails2>
-    with SingleTickerProviderStateMixin {
+class _MoreDetails2State extends State<MoreDetails2> {
   List<double> y = [450, 650, 1000];
   List<Widget> w = [DescriptionPage(), SpecificationsPage(), Reviews()];
   int i = 0;
@@ -269,10 +268,7 @@ class Reviews extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: 'avenirBl'),
+                      style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'avenirBl'),
                     ),
                     StarRow(),
                   ],

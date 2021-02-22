@@ -3,15 +3,19 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/text_style.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_custom_switch/flutter_custom_switch.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 final switchState = StateProvider<bool>((ref) {
+  return false;
+});
+final switchState2 = StateProvider<bool>((ref) {
   return false;
 });
 
@@ -21,13 +25,16 @@ class Setting extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final w = MediaQuery.of(context).size.width;
-    final w5 = MediaQuery.of(context).size.width / 5;
+
     final height = MediaQuery.of(context).size.height - kToolbarHeight;
     final switchChange = watch(switchState);
+    final switchChange2 = watch(switchState2);
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
-          appBar: StandardAppbar(title: "SETTING",),
+          appBar: StandardAppbar(
+            title: "SETTING",
+          ),
           body: Container(
             width: double.infinity,
             constraints: new BoxConstraints(
@@ -118,7 +125,7 @@ class Setting extends ConsumerWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
-                     (!switchChange.state)?"Enabled":"Dissbled",
+                      (switchChange.state) ? "Enabled" : "Dissbled",
                       style: b14.copyWith(color: Colors.black),
                     ),
                   ),
@@ -146,9 +153,9 @@ class Setting extends ConsumerWidget {
                           scale: 0.6,
                           child: CupertinoSwitch(
                             activeColor: brownGoldColor,
-                            value: !switchChange.state,
+                            value: switchChange2.state,
                             onChanged: (bool value) {
-                              switchChange.state = value;
+                              switchChange2.state = value;
                             },
                           ),
                         ),
@@ -161,7 +168,7 @@ class Setting extends ConsumerWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: w * 0.08),
                     child: Text(
-                      (switchChange.state)?"Enabled":"Dissbled",
+                      (switchChange2.state) ? "Enabled" : "Dissbled",
                       style: b14.copyWith(color: Colors.black),
                     ),
                   ),

@@ -103,7 +103,7 @@ class MyVouches extends ConsumerWidget {
               width: constraints.constrainWidth() * 0.67,
               height: 100.h,
               decoration: BoxDecoration(
-                color: Color(0xffF7F7F7),
+                color: const Color(0xffF7F7F7),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8),
                   bottomLeft: Radius.circular(8),
@@ -137,7 +137,7 @@ class MyVouches extends ConsumerWidget {
                     height: 4.h,
                     width: 10.w,
                     child: DecoratedBox(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -165,7 +165,7 @@ class MyVouches extends ConsumerWidget {
                             ),
                           ),
                           direction: Axis.vertical,
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize:MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         );
                       },

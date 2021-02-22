@@ -70,8 +70,8 @@ class StorePage extends StatelessWidget {
                               begin: Alignment.bottomRight,
                               end: Alignment.topLeft,
                               colors: [
-                                Color(0xff272833),
-                                Color(0xff97571E),
+                                const Color(0xff272833),
+                                const Color(0xff97571E),
                               ]),
                         ),
                         child: Padding(
