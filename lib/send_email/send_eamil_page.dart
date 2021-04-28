@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/color_plate.dart';
 import 'package:flutter_ecommerce/global_widgets/global_widgets.dart';
 import 'package:flutter_ecommerce/text_style.dart';

@@ -20,16 +20,13 @@ import 'package:flutter_ecommerce/main_screen/setting/order_history.dart';
 import 'package:flutter_ecommerce/main_screen/setting/setting.dart';
 import 'package:flutter_ecommerce/main_screen/setting/setting_main.dart';
 
-
 import 'package:flutter_ecommerce/order_detail.dart';
 import 'package:flutter_ecommerce/order_status.dart';
 import 'package:flutter_ecommerce/order_success.dart';
 import 'package:flutter_ecommerce/payment_detail.dart';
 
-
 import 'package:flutter_ecommerce/send_email/send_eamil_page.dart';
 import 'package:flutter_ecommerce/shipping_info.dart';
-
 
 import 'package:flutter_riverpod/all.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -37,17 +34,18 @@ import 'intro_screen/intro_page.dart';
 import 'intro_screen/page2.dart';
 import 'intro_screen/page3.dart';
 
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'seach_and_hastag/hastag.dart';
 import 'seach_and_hastag/search_page.dart';
 import 'package:bot_toast/bot_toast.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(child: App()));
 }
+
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -69,21 +67,25 @@ class App extends StatelessWidget {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Container(color: Colors.black,);
+        return Container(
+          color: Colors.black,
+        );
       },
     );
   }
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(375, 812),
-        allowFontScaling: false,
-        child: MaterialApp(
+      designSize: Size(375, 812),
+      allowFontScaling: false,
+      builder: () {
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          builder: BotToastInit(), 
+          builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
           theme: ThemeData(
             primarySwatch: Colors.grey,
@@ -108,14 +110,14 @@ class MyApp extends StatelessWidget {
             '/search': (context) => SearchPage(),
             '/intro': (context) => IntroPage(),
             '/verified': (context) => VerifiedPage(),
-         
+
             '/test2': (context) => LoginScreen(),
-          
+
             '/register': (context) => RegisterPage(),
-            
-             '/login': (context) => LoginScreen(),
+
+            '/login': (context) => LoginScreen(),
             '/sendemail': (context) => SendEmail(),
-             '/shipping': (context) => ShippingInfo(),
+            '/shipping': (context) => ShippingInfo(),
             '/settingmain': (context) => SettingMain(),
             '/orderhistory': (context) => OrderHistory(),
             '/ordersuccess': (context) => OrderSuccess(),
@@ -131,7 +133,6 @@ class MyApp extends StatelessWidget {
             '/map': (context) => MapFull(),
             '/mylocation': (context) => MyLocation(),
 
-       
             '/testload': (context) => LoadingPage(
                   nextPage: "null",
                 )
@@ -154,7 +155,9 @@ class MyApp extends StatelessWidget {
 
           //RegisterPage()
           //IntroPage(),
-        ));
+        );
+      },
+    );
   }
 
   SystemUiOverlayStyle statusBarLight() {

@@ -19,15 +19,22 @@ class ButtonFill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      minWidth: width,
-      padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 12.h),
-      onPressed: fuction,
-      color: color,
-      textColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22.0),
+    return TextButton(
+      style: TextButton.styleFrom(
+        primary: Colors.white,
+        minimumSize: Size(width, 0),
+        padding: EdgeInsets.fromLTRB(
+          20.w,
+          12.h,
+          20.w,
+          12.h,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22.0),
+        ),
+        backgroundColor: color,
       ),
+      onPressed: fuction,
       child: Text(
         message,
         style: TextStyle(
@@ -87,14 +94,22 @@ class ButtonFill2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      minWidth: width,
-      padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
+    return TextButton(
+     
       onPressed: fuction,
-      color: color,
-      textColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22.0),
+     style: TextButton.styleFrom(
+        primary: Colors.black,
+        minimumSize: Size(width, 0),
+        padding: EdgeInsets.fromLTRB(
+          20.w,
+          12.h,
+          20.w,
+          12.h,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22.0),
+        ),
+        backgroundColor: color,
       ),
       child: Text(
         message,
@@ -147,15 +162,17 @@ class StandardAppbar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
+
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
+
 class TextBottom extends StatelessWidget {
   final String text;
   final String text2;
   final String target;
 
-  const TextBottom({Key key, this.text, this.text2, this.target}) : super(key: key);
+  const TextBottom({Key key, this.text, this.text2, this.target})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -186,4 +203,3 @@ class TextBottom extends StatelessWidget {
     );
   }
 }
-
